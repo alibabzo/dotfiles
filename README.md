@@ -13,6 +13,8 @@ Feel free to copy/fork/modify/share, that's what this is all about.
 
 `config/`: Configuration files for applications that follow the XDG specification 
 
+`firefox/`: Firefox CSS
+
 `irssi/`: Irssi IRC client theme/scripts
 
 `vimperator/`: Vimperator for Firefox theme (I'll get around to finishing this at some point)
