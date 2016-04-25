@@ -4,6 +4,8 @@ Dotfiles are personal Linux configuration files.
 These are mine, and they're how I've customised my system.
 Feel free to copy/fork/modify/share, that's what this is all about.
 
+[![homescreen](https://github.com/alibabzo/dotfiles/raw/master/screenshot.png)](screenshot)
+
 # What's inside?
 `atom/`: Atom configuration file
 
