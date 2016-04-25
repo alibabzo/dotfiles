@@ -1,0 +1,34 @@
+" Oceanic Next colo(u)r scheme
+" WIP
+" Background: #1B2B34
+" Text: #CDD3DE
+" Prompt: #6699CC
+
+" general
+hi! Normal font-size: 12pt; color: #CDD3DE; background-color: #1B2B34;
+hi! URL color: inherit;
+
+" hints
+hi! HintElem color: #ffffff; background-color: #395475;
+hi! HintActive color: #ffffff; background-color: #ff6600;
+hi! -append Hint color: #395475; background-color: #ffff66;
+
+" status bar
+hi! StatusLine font-size: 11pt; font-weight: normal; color: #CDD3DE; background-color: #1B2B34;
+
+" command line
+hi! -append CmdLine font-size: 11pt; color: #CDD3DE; background-color: #1B2B34;
+hi! -append Prompt background-color: #1B2B34; margin-right: 2px;
+hi! PromptText color: #CDD3DE; background-color: #1B2B34;
+
+" messages
+hi! ErrorMsg font-size: 11pt; font-weight: bold; color: #ffffff; background-color: #ff6600;
+hi! InfoMsg font-size: 11pt; color: #ffff66; background-color: #395475;
+hi! ModeMsg font-size: 11pt; color: #ffffff; background-color: #395475;
+hi! MoreMsg font-size: 11pt; color: #ffff66; background-color: #395475;
+hi! WarningMsg font-size: 11pt; color: #ffffff; background-color: #395475;
+
+" completion list
+hi! CompItem[selected] font-weight: bold; color: #395475 !important; background-color: #ffffff !important;
+hi! Filter border: 1px solid #e0e0e0; border-radius:8px; color: #395475; background-color: #ffffff;
+
