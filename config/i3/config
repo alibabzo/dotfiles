@@ -9,6 +9,9 @@
 # Modifier
 set $mod Mod4
 
+# Font
+font pango:SFNS Display, FontAwesome 10
+
 # Workspace labels
 set $workspace1 "1 "
 set $workspace2 "2 "
@@ -163,7 +166,6 @@ bindsym $mod+r mode ""
 
 # {{{ Other config
 
-font pango:SFNS Display, FontAwesome 10
 hide_edge_borders both
 floating_modifier $mod
 assign [class="Firefox"] $workspace1
