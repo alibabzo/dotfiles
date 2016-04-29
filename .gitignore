@@ -1,1 +1,9 @@
+config/cmus/cache
+config/cmus/command-history
+config/cmus/lib.pl
+config/cmus/playlist.pl
+config/cmus/search-history
 config/nvim/backups/
+config/nvim/plugged/
+irssi/certs/
+irssi/config
