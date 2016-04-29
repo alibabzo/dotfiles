@@ -1,87 +1,18 @@
-! Base16 Oceanic Next
-! Scheme: Dmitri Voronianski (http://pixelhunter.me)
+! ROFI Color theme
 
-#define base00 #1B2B34
-#define base01 #343D46
-#define base02 #4F5B66
-#define base03 #65737E
-#define base04 #A7ADBA
-#define base05 #C0C5CE
-#define base06 #CDD3DE
-#define base07 #D8DEE9
-#define base08 #EC5f67
-#define base09 #F99157
-#define base0A #FAC863
-#define base0B #99C794
-#define base0C #5FB3B3
-#define base0D #6699CC
-#define base0E #C594C5
-#define base0F #AB7967
-
-! urxvt
-
-URxvt*geometry:                115x40
-URxvt*font: xft:Source\ Code\ Pro:pixelsize=14:antialias=true:hinting:false
-URxvt*boldFont: xft:Source\ Code\ Pro:bold:pixelsize=14:antialias=true:hinting=false
-URxvt*depth:                24
-URxvt*borderless: 1
-URxvt*scrollBar:            false
-URxvt*saveLines:  2000
-URxvt.transparent:      true
-URxvt*.shading: 10
-
-! Meta modifier for keybindings
-!URxvt.modifier: super
-
-!! perl extensions
-URxvt.perl-ext:             default,url-select,clipboard
-
-! url-select (part of urxvt-perls package)
-URxvt.keysym.M-u:           perl:url-select:select_next
-URxvt.url-select.autocopy:  true
-URxvt.url-select.button:    2
-URxvt.url-select.launcher:  chromium
-URxvt.url-select.underline: true
-
-! Nastavuje kopirovani
-URxvt.keysym.Shift-Control-V: perl:clipboard:paste
-URxvt.keysym.Shift-Control-C:   perl:clipboard:copy
-
-! disable the stupid ctrl+shift 'feature'
-URxvt.iso14755: false
-URxvt.iso14755_52: false
-
-!urxvt color scheme:
-
-URxvt*background: base07
-URxvt*foreground: base02
-
-URxvt*colorUL: base02
-
-! black
-URxvt*color0  : base00
-URxvt*color8  : base03
-! red
-URxvt*color1  : base08
-URxvt*color9  : base09
-! green
-URxvt*color2  : base0B
-URxvt*color10 : base01
-! yellow
-URxvt*color3  : base0A
-URxvt*color11 : base02
-! blue
-URxvt*color4  : base0D
-URxvt*color12 : base04
-! magenta
-URxvt*color5  : base0E
-URxvt*color13 : base06
-! cyan
-URxvt*color6  : base0C
-URxvt*color14 : base0F
-! white
-URxvt*color7  : base05
-URxvt*color15 : base07
+rofi.font:		SFNS Display 18
+rofi.separator-style:	solid
+rofi.color-enabled: true
+rofi.color-window: #2f343f, #f3f4f5, #003642
+rofi.color-normal: #2f343f, #f3f4f5, #002b37, #003642, #819396
+rofi.color-active: #2f343f, #f3f4f5, #002b37, #003642, #008ed4
+rofi.color-urgent: #2f343f, #f3f4f5, #002b37, #003642, #da4281
+rofi.lines: 3
+rofi.eh: 2
+rofi.opacity: 70
+rofi.padding: 300
+rofi.bw: 0
+rofi.width: 100
 
 ! XFT
 

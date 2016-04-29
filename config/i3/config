@@ -25,11 +25,11 @@ set $workspace9 "9"
 set $workspace10 "10 "
 
 # Colours
-set $bg-color			#2f343f
-set $inactive-bg-color		#2f343f
-set $text-color			#f3f4f5
-set $inactive-text-color	#676e7d
-set $urgent-bg-color		#e53935
+set $bg-color "#2f343f"
+set $inactive-bg-color "#2f343f"
+set $text-color "#f3f4f5"
+set $inactive-text-color "#676e7d"
+set $urgent-bg-color "#e53935"
 
 # }}}
 
@@ -94,7 +94,7 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # rofi
-bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 -padding 300 -opacity "80" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "SFNS Display 18"
+bindsym $mod+d exec rofi -show run 
 
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
@@ -103,8 +103,7 @@ bindsym Print exec screenshot
 
 # }}}
 
-
-# {{{ Colours
+# {{{ Window colours
 
 #			border			background		text			indicator
 client.focused		$bg-color		$bg-color		$text-color		#00ff00
@@ -134,13 +133,14 @@ bar {
 
 exec_always --no-startup-id feh --bg-scale /home/alistair/.wallpaper.jpg
 exec_always --no-startup-id compton -bCcf --config /home/alistair/.config/compton/compton.conf
+exec_always --no-startup-id redshift
 exec --no-startup-id i3-msg 'workspace $workspace10; exec termite -e cmus; workspace $workspace1'
 exec --no-startup-id i3-msg 'workspace $workspace4; exec irc; workspace $workspace1'
 exec --no-startup-id "devmon --no-gui"
 
 # }}}
 
-# {{{ Resize mode 
+# {{{ Resize mode
 
 # resize window (you can also use the mouse for that)
 mode "" {
