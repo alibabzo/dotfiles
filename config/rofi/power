@@ -1,0 +1,21 @@
+! ROFI Color theme
+
+rofi.font:		SFNS Display 14
+rofi.opacity:		90
+rofi.location:		3
+rofi.width:		-12
+! ------------------------------------------------------------------------------
+! ROFI Color theme
+! ------------------------------------------------------------------------------
+! Use extended color scheme
+rofi.color-enabled:                  true
+! Color scheme for normal row
+rofi.color-normal:                   #2f343f,#676e7d,#2f343f,#2f343f,#f3f4f5
+! Color scheme for urgent row
+rofi.color-urgent:                   #e53935,#676e7d,#e53935,#e53935,#f3f4f5
+! Color scheme for active row
+rofi.color-active:                   #2f343f,#f3f4f5,#2f343f,#2f343f,#f3f4f5
+! Color scheme window
+rofi.color-window:                   #2f343f,#2f343f
+! Separator style (none, dash, solid)
+rofi.separator-style:                solid
