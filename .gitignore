@@ -1,9 +1,16 @@
+config/Atom/
 config/cmus/cache
 config/cmus/command-history
 config/cmus/lib.pl
 config/cmus/playlist.pl
 config/cmus/search-history
+config/gconf/
+config/gtk-2.0/
+config/htop/
+config/mimeapps.list
 config/nvim/backups/
 config/nvim/plugged/
+config/pulse/
 irssi/certs/
 irssi/config
+vimperator/info
