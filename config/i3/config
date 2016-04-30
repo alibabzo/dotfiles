@@ -54,7 +54,7 @@ bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
-bindsym $mod+v layout toggle split
+bindsym $mod+v split toggle
 bindsym $mod+f fullscreen toggle
 
 bindsym $mod+s layout stacking
