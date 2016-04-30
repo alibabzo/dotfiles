@@ -11,6 +11,7 @@ config/mimeapps.list
 config/nvim/backups/
 config/nvim/plugged/
 config/pulse/
+config/thefuck/
 irssi/certs/
 irssi/config
 vimperator/info
