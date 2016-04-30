@@ -5,7 +5,7 @@
 " Prompt: #6699CC
 
 " general
-hi! Normal font-size: 12pt; color: #CDD3DE; background-color: #1B2B34;
+hi! Normal font-size: 9pt; color: #CDD3DE; background-color: #1B2B34;
 hi! URL color: inherit;
 
 " hints
@@ -14,19 +14,19 @@ hi! HintActive color: #ffffff; background-color: #ff6600;
 hi! -append Hint color: #395475; background-color: #ffff66;
 
 " status bar
-hi! StatusLine font-size: 11pt; font-weight: normal; color: #CDD3DE; background-color: #1B2B34;
+hi! StatusLine font-size: 9pt; font-weight: normal; color: #CDD3DE; background-color: #1B2B34;
 
 " command line
-hi! -append CmdLine font-size: 11pt; color: #CDD3DE; background-color: #1B2B34;
+hi! -append CmdLine font-size: 9pt; color: #CDD3DE; background-color: #1B2B34;
 hi! -append Prompt background-color: #1B2B34; margin-right: 2px;
 hi! PromptText color: #CDD3DE; background-color: #1B2B34;
 
 " messages
-hi! ErrorMsg font-size: 11pt; font-weight: bold; color: #ffffff; background-color: #ff6600;
-hi! InfoMsg font-size: 11pt; color: #ffff66; background-color: #395475;
-hi! ModeMsg font-size: 11pt; color: #ffffff; background-color: #395475;
-hi! MoreMsg font-size: 11pt; color: #ffff66; background-color: #395475;
-hi! WarningMsg font-size: 11pt; color: #ffffff; background-color: #395475;
+hi! ErrorMsg font-size: 9pt; font-weight: bold; color: #ffffff; background-color: #ff6600;
+hi! InfoMsg font-size: 9pt; color: #ffff66; background-color: #395475;
+hi! ModeMsg font-size: 9pt; color: #ffffff; background-color: #395475;
+hi! MoreMsg font-size: 9pt; color: #ffff66; background-color: #395475;
+hi! WarningMsg font-size: 9pt; color: #ffffff; background-color: #395475;
 
 " completion list
 hi! CompItem[selected] font-weight: bold; color: #395475 !important; background-color: #ffffff !important;
