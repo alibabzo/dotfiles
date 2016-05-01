@@ -49,8 +49,6 @@ eval "$(thefuck --alias shit)"
 
 # Files
 
-alias l="ls -o -hX --group-directories-first"
-alias la="ls -o -AhX --group-directories-first"
 alias v='nvim'
 alias mkexec="chmod +x"
 alias lg="ls | grep"
