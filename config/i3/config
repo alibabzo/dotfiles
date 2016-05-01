@@ -36,7 +36,7 @@ set $urgent-bg-color "#e53935"
 # {{{ Keybindings
 
 # Application launching
-bindsym $mod+Shift+x exec i3lock --color 475263
+bindsym $mod+Shift+x exec i3lock-fancy
 bindsym $mod+Return exec termite
 bindsym $mod+Shift+f exec firefox
 
