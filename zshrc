@@ -17,29 +17,24 @@ HISTFILE=~/.histfile
 HISTSIZE=100
 SAVEHIST=500
 setopt appendhistory autocd extendedglob
+setopt HIST_IGNORE_DUPS
 bindkey -e
 
 # End of lines configured by zsh-newuser-install
 
+# zplug
 
-
-# antigen config
-
-source /home/alistair/antigen/antigen.zsh
-antigen use oh-my-zsh
-
-antigen bundle git
-antigen bundle pip
-antigen bundle archlinux
-antigen bundle djui/alias-tips
-antigen bundle zsh-users/zsh-completions src
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen theme agnoster
-antigen apply
-
-# end of antigen config
-
-
+source ~/.zplug/init.zsh
+zplug "zsh-users/zsh-syntax-highlighting", nice:10
+zplug "plugins/git", from:oh-my-zsh,  if:"(( $+commands[git] ))"
+zplug "plugins/archlinux", from:oh-my-zsh
+zplug "lib/directories", from:oh-my-zsh
+zplug "lib/theme-and-appearance", from:oh-my-zsh
+zplug "djui/alias-tips"
+zplug "zsh-users/zsh-completions"
+zplug "themes/agnoster", from:oh-my-zsh
+zplug "b4b4r07/zplug"
+zplug load 
 # Aliases
 
 # thefuck
@@ -91,9 +86,3 @@ extract () {
     fi
 }
 # }}}
-
-
-# Set zsh variables
-export PATH=$PATH:/home/alistair/bin
-export EDITOR=nvim
-
