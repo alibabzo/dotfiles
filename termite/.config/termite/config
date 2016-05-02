@@ -7,7 +7,7 @@ font = Hack 9
 foreground      = #C0C5CE
 foreground_bold = #C0C5CE
 cursor          = #C0C5CE
-background      = rgba(27,43,52,0.7) 
+background      = rgba(27,43,52,0.8) 
 
 # 16 color space
 color0  = #1B2B34
