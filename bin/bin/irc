@@ -1,4 +1,4 @@
 #!/bin/bash
 
-# Launch irssi in a new tmux session in termite
-termite -e "tmux new -d -s irc 'irssi'\; attach"
+# Launch irssi in a new tmux session in st
+st -e tmux new -d -s irc 'irssi'\; attach

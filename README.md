@@ -19,7 +19,7 @@ Run `stow -D i3` to remove i3 config
 * **Shell**: [zsh](https://www.zsh.org)
   * with [tmux](https://tmux.github.io)
   * and [zplug](https://github.com/b4b4r07/zplug)
-* **Terminal emulator**: [termite](https://wiki.archlinux.org/index.php/Termite)
+* **Terminal emulator**: [st](http://st.suckless.org)
 * **Notification daemon**: [dunst](https://github.com/knopwob/dunst)
 * **Window manager**: [i3](http://i3wm.org)
   * **Bar**: [i3bar with i3blocks](https://github.com/vivien/i3blocks)

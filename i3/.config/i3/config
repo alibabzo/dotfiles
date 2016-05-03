@@ -37,7 +37,7 @@ set $urgent-bg-color "#e53935"
 
 # Application launching
 bindsym $mod+Shift+x exec i3lock-fancy
-bindsym $mod+Return exec termite
+bindsym $mod+Return exec st
 bindsym $mod+Shift+f exec firefox
 
 bindsym $mod+Shift+q kill
@@ -138,7 +138,7 @@ bar {
 exec_always --no-startup-id feh --bg-scale /home/alistair/.wallpaper.jpg
 exec_always --no-startup-id compton -bCcf --config /home/alistair/.config/compton/compton.conf
 exec_always --no-startup-id redshift
-exec --no-startup-id i3-msg 'workspace $workspace10; exec termite -e cmus; workspace $workspace1'
+exec --no-startup-id i3-msg 'workspace $workspace10; exec st -e cmus; workspace $workspace1'
 exec --no-startup-id i3-msg 'workspace $workspace4; exec irc; workspace $workspace1'
 exec --no-startup-id "devmon --no-gui"
 
