@@ -1,0 +1,5 @@
+#!/bin/zsh
+cd ~/Projects/st/
+makepkg
+sudo pacman -U st*.tar.xz
+rm -rf ~/Projects/st/pkg/ ~/Projects/st/src/ ~/Projects/st/st/ ~/Projects/st/st*.tar.xz
