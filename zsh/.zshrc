@@ -28,7 +28,9 @@ source ~/.zplug/init.zsh
 zplug "zsh-users/zsh-syntax-highlighting", nice:10
 zplug "plugins/git", from:oh-my-zsh,  if:"(( $+commands[git] ))"
 zplug "plugins/archlinux", from:oh-my-zsh
+zplug "lib/completion", from:oh-my-zsh
 zplug "lib/directories", from:oh-my-zsh
+zplug "lib/key-bindings", from:oh-my-zsh
 zplug "lib/theme-and-appearance", from:oh-my-zsh
 zplug "djui/alias-tips"
 zplug "zsh-users/zsh-completions"
