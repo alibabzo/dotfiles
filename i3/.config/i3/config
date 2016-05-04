@@ -135,7 +135,7 @@ bar {
 
 # {{{ Startup
 
-exec_always --no-startup-id feh --bg-scale /home/alistair/.wallpaper.jpg
+exec_always --no-startup-id feh --bg-scale /home/alistair/.wallpaper.png
 exec_always --no-startup-id compton -bCcf --config /home/alistair/.config/compton/compton.conf
 exec_always --no-startup-id redshift
 exec --no-startup-id st -T "cmus" -e cmus
