@@ -22,21 +22,15 @@ bindkey -e
 
 # End of lines configured by zsh-newuser-install
 
-# zplug
+# zinit
+source ~/.zim/init.zsh
 
-source ~/.zplug/init.zsh
-zplug "zsh-users/zsh-syntax-highlighting", nice:10
-zplug "plugins/git", from:oh-my-zsh,  if:"(( $+commands[git] ))"
-zplug "plugins/archlinux", from:oh-my-zsh
-zplug "lib/completion", from:oh-my-zsh
-zplug "lib/directories", from:oh-my-zsh
-zplug "lib/key-bindings", from:oh-my-zsh
-zplug "lib/theme-and-appearance", from:oh-my-zsh
-zplug "djui/alias-tips"
-zplug "zsh-users/zsh-completions"
-zplug "themes/agnoster", from:oh-my-zsh
-zplug "b4b4r07/zplug"
-zplug load 
+# Powerlevel9K
+
+POWERLEVEL9K_INSTALLATION_PATH=~/.zim/modules/prompt/external-themes/powerlevel9k/powerlevel9k.zsh-theme
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status todo)
+
 # Aliases
 
 # thefuck
@@ -52,6 +46,7 @@ alias lg="ls | grep"
 
 # Configs
 alias zshrc="nvim ~/.zshrc && source ~/.zshrc"
+alias zimrc="nvim ~/.zimrc && source ~/.zimrc"
 alias vinit="nvim ~/.config/nvim/init.vim"
 alias i3conf="nvim ~/.config/i3/config"
 
