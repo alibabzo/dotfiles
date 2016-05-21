@@ -99,10 +99,10 @@ bindsym $mod+d exec rofi -show run -config ~/.config/rofi/launcher
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
-bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
-bindsym XF86AudioNext exec --no-startup-id playerctl next 
-bindsym XF86AudioPrevious exec --no-startup-id playerctl previous
-bindsym XF86AudioStop exec --no-startup-id playerctl stop
+bindsym XF86AudioPlay exec --no-startup-id playerctl-cmus play-pause
+bindsym XF86AudioNext exec --no-startup-id playerctl-cmus next 
+bindsym XF86AudioPrevious exec --no-startup-id playerctl-cmus previous
+bindsym XF86AudioStop exec --no-startup-id playerctl-cmus stop
 bindsym Print exec screenshot
 
 # }}}
@@ -140,11 +140,8 @@ exec_always --no-startup-id compton -bCcf --config /home/alistair/.config/compto
 exec_always --no-startup-id redshift
 exec --no-startup-id st -T "cmus" -e cmus
 for_window [Title="cmus"] move workspace $workspace10
-
-exec --no-startup-id irc 
-for_window [Title="irc"] move workspace $workspace4
-
-exec --no-startup-id "devmon --no-gui"
+exec --no-startup-id st -T "weechat" -e weechat
+for_window [Title="weechat"] move workspace $workspace4
 
 # }}}
 
