@@ -10,6 +10,11 @@ set autoread			" Reload files changed outside nvim
 
 " turn on syntax highlighting
 syntax on 
+function! DoRemote(arg)
+  UpdateRemotePlugins
+endfunction
+
+call deoplete#enable()
 
 " =================== vim-plug configuration ====================
 " Loads plugins 
@@ -20,6 +25,7 @@ Plug 'mhartington/oceanic-next'
 Plug 'othree/yajs.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'scrooloose/nerdtree'
+Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 call plug#end()
 
 " ===================== Turn off swap files =====================
