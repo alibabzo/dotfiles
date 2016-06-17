@@ -1,0 +1,16 @@
+*.font: xft:Hack:pixelsize=12
+URxvt.boldFont: xft:Hack:pixelsize=12:bold
+URxvt.italicFont: xft:Hack:pixelsize=12:italic
+URxvt:boldItalicFont: xft:Hack:pixelsize=12:bold:italic
+URxvt.letterSpace: -1
+*.scrollBar: false
+URxvt.cursorBlink: true
+URxvt.cursorUnderline: true
+URxvt.internalBorder: 15
+
+URxvt.perl-ext-common: default,url-select,selection-to-clipboard
+URxvt.keysym.M-u: perl:url-select:select-next
+URxvt.url-select-launcher: /usr/bin/env xdg-open
+URxvt.url-select-underline: false
+
+! vim: set ft=xftdefaults :

@@ -37,7 +37,7 @@ set $urgent-bg-color "#e53935"
 
 # Application launching
 bindsym $mod+Shift+x exec i3lock-fancy
-bindsym $mod+Return exec st
+bindsym $mod+Return exec urxvtc
 bindsym $mod+Shift+f exec firefox
 
 bindsym $mod+Shift+q kill

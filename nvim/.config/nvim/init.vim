@@ -108,7 +108,7 @@ let NERDTreeDirArrows = 1
 
 " =========================== Theme =============================
 
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+set termguicolors
 colorscheme OceanicNext
 let g:airline_theme='oceanicnext'
 let g:airline_powerline_fonts = 1
