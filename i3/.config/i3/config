@@ -25,9 +25,10 @@ set $workspace9 "9"
 set $workspace10 "10 "
 
 # Colours
-set $bg-color "#2f343f"
-set $inactive-bg-color "#2f343f"
-set $text-color "#f3f4f5"
+# set $bg-color "#2f343f"
+set $bg-color "#1b2b34"
+set $inactive-bg-color "#1b2b34"
+set $text-color "#c0c5ce"
 set $inactive-text-color "#676e7d"
 set $urgent-bg-color "#e53935"
 
@@ -91,7 +92,7 @@ bindsym $mod+Shift+0 move container to workspace $workspace10
 # reload/restart/exit
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
-bindsym $mod+Shift+e exec "/usr/lib/i3blocks/shutdown_menu -c"
+bindsym $mod+Shift+e exec "/usr/libexec/i3blocks/shutdown_menu -c"
 
 # rofi
 bindsym $mod+d exec rofi -show run -config ~/.config/rofi/launcher
