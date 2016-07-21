@@ -13,16 +13,16 @@ set $mod Mod4
 font pango:SFNS Display, FontAwesome 10
 
 # Workspace labels
-set $workspace1 "1 "
-set $workspace2 "2 "
-set $workspace3 "3 "
-set $workspace4 "4 "
-set $workspace5 "5 "
+set $workspace1 " 1 "
+set $workspace2 " 2 "
+set $workspace3 " 3 "
+set $workspace4 " 4 "
+set $workspace5 " 5 "
 set $workspace6 "6"
 set $workspace7 "7"
 set $workspace8 "8"
 set $workspace9 "9"
-set $workspace10 "10 "
+set $workspace10 " 10 "
 
 # Colours
 # set $bg-color "#2f343f"
@@ -120,23 +120,26 @@ client.urgent            $urgent-bg-color    $urgent-bg-color    $text-color    
 
 # {{{ Bar
 
-bar {
-    status_command i3blocks -c /home/alistair/.config/i3blocks/i3blocks.conf
-    colors {
-        background $bg-color
-        separator #757575
-        #                   border              background          text
-        focused_workspace   $bg-color           $bg-color           $text-color
-        inactive_workspace  $inactive-bg-color  $inactive-bg-color  $inactive-text-color
-        urgent_workspace    $urgent-bg-color    $urgent-bg-color    $text-color
-  }
-}
+# bar {
+#     status_command i3blocks -c /home/alistair/.config/i3blocks/i3blocks.conf
+#     colors {
+#         background $bg-color
+#         separator #757575
+#         #                   border              background          text
+#         focused_workspace   $bg-color           $bg-color           $text-color
+#         inactive_workspace  $inactive-bg-color  $inactive-bg-color  $inactive-text-color
+#         urgent_workspace    $urgent-bg-color    $urgent-bg-color    $text-color
+#   }
+# }
 
+bar {
+  i3bar_command bash ~/.config/lemonbar/bottom
+}
 # }}}
 
 # {{{ Startup
 
-exec_always --no-startup-id feh --bg-scale /home/alistair/Pictures/hex.png
+exec_always --no-startup-id feh --bg-fill /home/alistair/Pictures/hex.png
 exec_always --no-startup-id compton -bCcf --config /home/alistair/.config/compton/compton.conf
 exec_always --no-startup-id redshift
 exec --no-startup-id st -T "cmus" -e cmus

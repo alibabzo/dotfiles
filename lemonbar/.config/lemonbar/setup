@@ -1,0 +1,145 @@
+#!/bin/bash
+killall lemonbar
+PANEL_FIFO=/tmp/panel-fifo
+PANEL_HEIGHT=28
+PANEL_FONT_FAMILY="SFNS Display:size=10"
+OTHER_ICON_FONT="FontAwesome:size=12"
+ICON_FONT="MaterialIcons:size=14"
+COLOR_BACKGROUND="#BEC4C7"
+COLOR_BACKGROUND="#e9cc24"
+COLOR_FOREGROUND="#000000"
+COLOR_HIGHLIGHT="#000000"
+COLOR_TEXT_HIGHLIGHT="#FFFFFF"
+UPDATE="~/.config/lemonbar/update"
+
+if [ $(pgrep -cx panel) -gt 1 ] ; then
+  printf "%s\n" "The panel is already running." >&2
+  exit 1
+fi
+
+trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
+
+
+# Power button
+power(){
+  echo -e '%{A:/usr/libexec/i3blocks/shutdown_menu -c:}  \uE8AC  %{A}'
+}
+
+# Clock
+clock(){
+  echo -e ' \uE916' $(date +'%A, %b %e')  '\uE924' $(date +'%l:%M %p') ' '
+}
+
+_date(){
+  echo -e ' \uE916' $(date +'%A, %e %b')
+}
+
+_time(){
+  echo -e ' \uE924' $(date +'%l:%M %p') ' '
+}
+
+# Battery
+battery(){
+  lvl=$(cat /sys/class/power_supply/BAT0/capacity)
+  stat=$(cat /sys/class/power_supply/BAT0/status)
+  if [ $stat == "Charging" ]
+  then
+    icon='\uE1A3'
+  elif (($lvl > 20))
+  then
+    icon='\uE1A4'
+  else
+    icon='\uE19C'
+  fi
+
+  echo -e $icon $lvl'%' ' '
+}
+
+# Networking
+network(){
+  ip link show enp0s25 | grep 'state UP' >/dev/null && icon='\uE8C2' && ssid='' || icon='\uE63E' && ssid=$(iwgetid -r)
+  echo -e $icon $ssid ' '
+}
+
+ssid(){
+  name=$(iwgetid -r)
+  echo $name
+}
+
+# Volume
+volume(){
+  vol=$(amixer get Master | grep % | sed -n 1p | awk -F '[' '{print $2}' | awk -F ']' '{print $1}' | sed s/%//)
+  if [ $vol = 0 ]; then
+    icon='\uE04F'
+  elif [ $vol -lt 33 ]; then
+    icon='\uE04E'
+  elif [ $vol -lt 66 ]; then
+    icon='\uE04D'
+  else
+    icon='\uE050'
+  fi
+
+  echo -e '' $icon $vol'%' ' '
+}
+
+#Music
+music(){
+  song=$(mpc current)
+  echo -e '\uE405' $song
+}
+
+music_control_left(){
+  echo -e "%{A:mpc prev:}\ue5c4%{A}"
+}
+
+music_control_right(){
+  echo -e "%{A:mpc next:}\ue5c8%{A}"
+}
+
+music_control_pause_play(){
+  echo -e "%{A:mpc toggle:}\ue038%{A}"
+}
+
+music_controls(){
+  echo -e "$(music_control_left) $(music_control_pause_play) $(music_control_right)"
+}
+
+#Player
+player(){
+  status=$(mpc status | grep -E "(playing|paused)" -o)
+  progress=$(mpc status | grep -E "(playing|paused)" | rev | cut -c 3- | rev | cut -d "(" -f 2)
+  full=$((progress / 2))
+  shade=$((50 - full))
+  if [ $status == "playing" ]; then
+    icon='\uE034'
+  else
+    icon='\uE037'
+  fi
+  echo -e "%{A:mpc -q prev && ${UPDATE}:} \uE045%{A}%{A:mpc -q toggle && ${UPDATE}:} " $icon " %{A}%{A:mpc -q next && ${UPDATE}:}\uE044 %{A} ▌"$(seq -s█ $full|tr -d '[:digit:]')$(seq -s▓ $shade|tr -d '[:digit:]')"▐"
+}
+
+workspace() {
+  output=""
+  desktop="$(i3-msg -t get_workspaces \
+    | jq '.[].name' \
+    | sed -e 's/^"//' -e 's/"$//')"
+  focused="$(i3-msg -t get_workspaces \
+    | jq '.[] | select(.focused == true) | .name' \
+    | tr -d '""')"
+  while read -r line
+  do
+    if [[ "$line" == "$focused" ]]; then
+      output="$output %{F#ffffff}%{A:i3-msg workspace $line:} \
+      $(echo $line | sed s/^[0-9*]-//)%{A}%{F-}"
+    else
+      output="$output %{F#aaaaaa}%{A:i3-msg workspace $line:} \
+      $(echo $line | sed s/^[0-9*]-//)%{A}%{F-}"
+    fi
+  done <<< "$desktop"
+  echo $output
+}
+
+title(){
+  title=$(xdotool getactivewindow getwindowname)
+  echo "$title" | cut -c 1-70
+}

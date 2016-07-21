@@ -1,0 +1,21 @@
+#!/bin/bash
+output=""
+desktop="$(i3-msg -t get_workspaces \
+  | jq '.[].name' \
+  | sed -e 's/^"//' -e 's/"$//')"
+focused="$(i3-msg -t get_workspaces \
+  | jq '.[] | select(.focused == true) | .name' \
+  | tr -d '""')"
+echo $desktop
+echo $focused
+while read -r line
+do
+  if [[ "$line" == "$focused" ]]; then
+    output="$output %{F#ffffff}%{A:i3-msg workspace $line:} \
+    $(echo $line | sed s/^[0-9*]-//)%{A}%{F-}"
+  else
+    output="$output %{F#aaaaaa}%{A:i3-msg workspace $line:} \
+    $(echo $line | sed s/^[0-9*]-//)%{A}%{F-}"
+  fi
+done <<< "$desktop"
+echo $output
