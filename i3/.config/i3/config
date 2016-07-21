@@ -13,24 +13,27 @@ set $mod Mod4
 font pango:SFNS Display, FontAwesome 10
 
 # Workspace labels
-set $workspace1 " 1 "
-set $workspace2 " 2 "
-set $workspace3 " 3 "
-set $workspace4 " 4 "
-set $workspace5 " 5 "
+set $workspace1 "1 "
+set $workspace2 "2 "
+set $workspace3 "3 "
+set $workspace4 "4 "
+set $workspace5 "5 "
 set $workspace6 "6"
 set $workspace7 "7"
 set $workspace8 "8"
 set $workspace9 "9"
-set $workspace10 " 10 "
+set $workspace10 "10 "
 
 # Colours
-# set $bg-color "#2f343f"
 set $bg-color "#1b2b34"
+set $tbg-color "#19000044"
 set $inactive-bg-color "#1b2b34"
 set $text-color "#c0c5ce"
+set $bar-text-color "#ffffff"
 set $inactive-text-color "#676e7d"
+set $bar-inactive-text-color "#aaaaaa"
 set $urgent-bg-color "#e53935"
+set $turgent-bg-color "#e53935cc"
 
 # }}}
 
@@ -120,20 +123,17 @@ client.urgent            $urgent-bg-color    $urgent-bg-color    $text-color    
 
 # {{{ Bar
 
-# bar {
-#     status_command i3blocks -c /home/alistair/.config/i3blocks/i3blocks.conf
-#     colors {
-#         background $bg-color
-#         separator #757575
-#         #                   border              background          text
-#         focused_workspace   $bg-color           $bg-color           $text-color
-#         inactive_workspace  $inactive-bg-color  $inactive-bg-color  $inactive-text-color
-#         urgent_workspace    $urgent-bg-color    $urgent-bg-color    $text-color
-#   }
-# }
-
 bar {
-  i3bar_command bash ~/.config/lemonbar/bottom
+    i3bar_command i3bar -t
+    status_command i3blocks -c /home/alistair/.config/i3blocks/i3blocks.conf
+    colors {
+        background $tbg-color
+        separator #757575
+        #                   border              background          text
+        focused_workspace   $tbg-color          $tbg-color          $bar-text-color
+        inactive_workspace  $tbg-color          $tbg-color          $bar-inactive-text-color
+        urgent_workspace    $turgent-bg-color   $turgent-bg-color   $bar-text-color
+  }
 }
 # }}}
 
