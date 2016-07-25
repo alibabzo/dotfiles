@@ -43,8 +43,8 @@ set autoread
 
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
-let mapleader = ","
-let g:mapleader = ","
+let mapleader = "\<Space>"
+let g:mapleader = "\<Space>"
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -125,9 +125,6 @@ set showcmd
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Enable syntax highlighting
-syntax enable
-
 set background=dark
 set termguicolors
 
@@ -214,8 +211,20 @@ map <C-l> <C-W>l
 " Close the current buffer
 map <leader>bd :Bclose<cr>
 
+" Map alt+number to buffers
+map <M-1> :b1<cr>
+map <M-2> :b2<cr>
+map <M-3> :b3<cr>
+map <M-4> :b4<cr>
+map <M-5> :b5<cr>
+map <M-6> :b6<cr>
+map <M-7> :b7<cr>
+map <M-8> :b8<cr>
+map <M-9> :b9<cr>
+map <M-0> :b10<cr>
+
 " Close all the buffers
-map <leader>ba :1,1000 bd!<cr>
+map <leader>ba :1,$bd!<cr>
 
 " Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
@@ -401,14 +410,20 @@ endfunction
 " => Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable plugins
-call plug#begin()
-Plug 'tpope/vim-dispatch'
-Plug 'scrooloose/syntastic'
-Plug 'mhartington/oceanic-next'
-Plug 'vim-airline/vim-airline'
-Plug 'omnisharp/omnisharp-vim', { 'do': 'cd server && xbuild /p:TargetFrameworkVersion=v4.5' }
-Plug 'Valloric/YouCompleteMe'
-call plug#end()
+set runtimepath+=~/.config/nvim/dein/repos/github.com/Shougo/dein.vim
+
+call dein#begin(expand('~/.config/nvim/dein'))
+call dein#add('Shougo/dein.vim')
+call dein#add('tpope/vim-dispatch')
+call dein#add('scrooloose/syntastic')
+call dein#add('mhartington/oceanic-next')
+call dein#add('vim-airline/vim-airline')
+call dein#add('Shougo/deoplete.nvim')
+call dein#add('zchee/deoplete-jedi')
+call dein#add('omnisharp/omnisharp-vim')
+call dein#add('https://gitlab.com/mixedCase/deoplete-omnisharp.git')
+call dein#end()
+call deoplete#enable()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin configuration
@@ -420,23 +435,16 @@ let g:airline#extensions#tabline#enabled = 1 " Enable buffer line
 let g:airline_powerline_fonts = 1 " Enable powerline fonts
 
 " Deoplete
-autocmd FileType python nnoremap <leader>y :0,$!yapf<Cr>
+autocmd FileType python nnoremap <leader>y :0,$!yapf<Cr> " Enable python syntax completion
 autocmd CompleteDone * pclose " Close deoplete preview window automagically
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>" " Map tab to autocomplete
 set completeopt-=preview " Disable preview
 
 " Oceanic Next
 colorscheme OceanicNext
 
-" Omnisharp-vim
-let g:OmniSharp_want_snippet=1 " Enable snippet completion
-" Rename commands
-nnoremap <leader>nm :OmniSharpRename<cr>
-nnoremap <F2> :OmniSharpRename<cr>
-command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")<Paste>
-
 " Syntastic
-let g:syntastic_cs_checkers = ['syntax','semantic', 'issues'] " Enable csharp syntax checker
+let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues'] " Enable csharp syntax checker
 let g:syntastic_python_checkers = ['python'] " Enable python syntax checker
 let g:syntastic_sh_checkers = ['sh'] " Enable bash syntax checker
-
+syntax on
