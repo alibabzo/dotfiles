@@ -1,4 +1,4 @@
-*.font: xft:Hack:pixelsize=12
+URxvt.font: xft:Hack:pixelsize=12
 URxvt.boldFont: xft:Hack:pixelsize=12:bold
 URxvt.italicFont: xft:Hack:pixelsize=12:italic
 URxvt:boldItalicFont: xft:Hack:pixelsize=12:bold:italic
