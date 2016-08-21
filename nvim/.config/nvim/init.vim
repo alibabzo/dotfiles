@@ -195,10 +195,6 @@ vnoremap <silent> # :call VisualSelection('b')<CR>
 map j gj
 map k gk
 
-" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
-map <c-space> ?
-
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
 
@@ -410,10 +406,9 @@ endfunction
 " => Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable plugins
-set runtimepath+=~/.config/nvim/dein/repos/github.com/Shougo/dein.vim
+set rtp+=/usr/share/vim/vimfiles
 
-call dein#begin(expand('~/.config/nvim/dein'))
-call dein#add('Shougo/dein.vim')
+call dein#begin(expand('~/.cache/dein'))
 call dein#add('tpope/vim-dispatch')
 call dein#add('scrooloose/syntastic')
 call dein#add('mhartington/oceanic-next')
@@ -423,6 +418,10 @@ call dein#add('zchee/deoplete-jedi')
 call dein#add('omnisharp/omnisharp-vim')
 call dein#add('https://gitlab.com/mixedCase/deoplete-omnisharp.git')
 call dein#end()
+if dein#check_install()
+  call dein#install()
+endif
+
 call deoplete#enable()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
