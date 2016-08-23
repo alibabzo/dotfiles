@@ -1,2 +1,2 @@
-export PATH=$PATH:/home/alistair/bin
-export EDITOR=nvim
+ZDOTDIR=$HOME/.config/zsh
+. $ZDOTDIR/.zshenv

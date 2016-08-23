@@ -42,7 +42,7 @@ set $turgent-bg-color "#e53935cc"
 # Application launching
 bindsym $mod+Shift+x exec i3lock-fancy
 bindsym $mod+Return exec urxvtc
-bindsym $mod+Shift+f exec firefox
+bindsym $mod+Shift+f exec qutebrowser
 
 bindsym $mod+Shift+q kill
 
