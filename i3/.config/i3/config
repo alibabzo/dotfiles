@@ -13,7 +13,7 @@ set $mod Mod4
 font pango:SFNS Display, FontAwesome 10
 
 # Workspace labels
-set $workspace1 "1 "
+set $workspace1 "1 "
 set $workspace2 "2 "
 set $workspace3 "3 "
 set $workspace4 "4 "
