@@ -14,50 +14,43 @@ Run `stow -D i3` to remove i3 config
 
 * **Operating System**: [Arch](https://www.archlinux.org)
 * **Text editor**: [neovim](http://neovim.io)
+  * with [dein.vim](https://github.com/Shougo/dein.vim) as plugin manager
   * See `nvim/.config/nvim/init.vim` for plugins
-* **Color scheme**: [oceanic-next](https://github.com/voronianski/oceanic-next-color-scheme)
+* **Colour scheme**: [oceanic-next](https://github.com/voronianski/oceanic-next-color-scheme)
 * **Shell**: [zsh](https://www.zsh.org)
-  * with [tmux](https://tmux.github.io)
-  * and [zplug](https://github.com/b4b4r07/zplug)
-* **Terminal emulator**: [st](http://st.suckless.org)
+  * with [zim](https://github.com/Eriner/zim)
+* **Terminal emulator**: [rxvt-unicode](http://software.schmorp.de/pkg/rxvt-unicode.html)
 * **Notification daemon**: [dunst](https://github.com/knopwob/dunst)
-* **Window manager**: [i3](http://i3wm.org)
-  * **Bar**: [i3bar with i3blocks](https://github.com/vivien/i3blocks)
+* **Window manager**: [i3-gaps](https://github.com/Airblader/i3)
+  * **Bar**: [i3bar-gaps with i3blocks](https://github.com/vivien/i3blocks)
   * **Launcher**: [rofi](https://github.com/DaveDavenport/rofi)
-* **Browser**: Firefox
-  * **Theme**: Twily's Powerline (modified)
-* **Music player**: [cmus](https://wiki.archlinux.org/index.php/Cmus)
-* **IRC client**: [irssi](https://irssi.org/)
+* **Browser**: [qutebrowser](https://github.com/The-Compiler/qutebrowser)
+* **Music player**: [ncmpcpp](http://rybczak.net/ncmpcpp/)
+  * **Backend**: [mopidy](https://www.mopidy.com/)
+* **IRC client**: [weechat](https://weechat.org/)
 
 # Directory structure
 
 ```
 . <- you are here
-├── atom - configuration for gui text editor
 ├── bin - scripts
 ├── compton - window compositor configuration
 ├── dunst - notification configuration
 ├── firefox - firefox css
 ├── gtk - configuration for gtk
-├── i3 - i3 rice
-├── i3blocks - i3 bar rice
-├── irssi - irc client configuration
+├── i3 - i3 configuration
+├── i3blocks - i3blocks configuration
 ├── nvim - configuration file for nvim
+├── qutebrowser - configuration for qutebrowser
 ├── README.md - what you're reading
 ├── redshift - configuration for your eyes
 ├── rofi - launcher configuration
 ├── screenshot.png - screenshot
-├── termite - terminal emulator configuration
 ├── tmux - terminal multiplexer configuration
-├── urxvt - another terminal emulator configuration
-├── vimperator - vim for firefox configuration
-├── yaourt - short yaourt configuration
+├── x - x configuration, including urxvt and colourscheme
+├── yaourt - yaourt configuration
 └── zsh - shell configuration
 
 ```
 # Screenshot
 [![homescreen](https://github.com/alibabzo/dotfiles/raw/master/screenshot.png)](screenshot)
-
----
-
-Thanks to @alexbooker, many of the ideas here are his

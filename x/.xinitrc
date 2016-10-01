@@ -33,5 +33,14 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 fi
 
 export LANG=en_GB.UTF-8
+
+intern=LVDS1
+extern=DP1
+if xrandr | grep "$extern disconnected"; then
+    xrandr --output "$extern" --off --output "$intern" --auto
+else
+    xrandr --output "$intern" --off --output "$extern" --auto
+fi
+
 urxvtd -q -o -f
 exec i3
