@@ -415,6 +415,7 @@ call dein#add('scrooloose/syntastic')
 call dein#add('scrooloose/nerdtree')
 call dein#add('mhartington/oceanic-next')
 call dein#add('vim-airline/vim-airline')
+call dein#add('Shougo/deoplete.nvim')
 call dein#add('zchee/deoplete-jedi')
 call dein#add('omnisharp/omnisharp-vim', {'build':'cd server && xbuild'})
 call dein#add('https://gitlab.com/mixedCase/deoplete-omnisharp.git')
@@ -426,6 +427,8 @@ call dein#end()
 if dein#check_install()
   call dein#install()
 endif
+
+call deoplete#enable()
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -443,14 +446,14 @@ autocmd CompleteDone * pclose " Close deoplete preview window automagically
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>" " Map tab to autocomplete
 set completeopt-=preview " Disable preview
 
-" Oceanic Next
-colorscheme OceanicNext
-
 " Syntastic
 let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues'] " Enable csharp syntax checker
 let g:syntastic_python_checkers = ['python'] " Enable python syntax checker
 let g:syntastic_sh_checkers = ['sh'] " Enable bash syntax checker
-syntax on
+syntax enable
+
+" Oceanic Next
+colorscheme OceanicNext
 
 " NeomakeHaskell
 augroup NeomakeHaskell
