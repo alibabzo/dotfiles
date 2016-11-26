@@ -1,2 +1,2 @@
-export PATH=$PATH:~/.cabal/bin:~/.local/bin
+export PATH=$PATH:~/.local/bin
 export EDITOR=nvim
