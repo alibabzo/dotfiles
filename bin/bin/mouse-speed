@@ -1,0 +1,14 @@
+#!/bin/bash
+SEARCH="Logitech Gaming Mouse G502"
+
+ids=$(xinput --list | awk -v search="$SEARCH" \
+    '$0 ~ search {match($0, /id=[0-9]+/);\
+                  if (RSTART) \
+                    print substr($0, RSTART+3, RLENGTH-3)\
+                 }'\
+     )
+
+for i in $ids
+do
+    xinput set-prop $i 'libinput Accel Speed' -0.3 || true
+done
