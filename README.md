@@ -48,7 +48,6 @@ Run `stow -D i3` to remove i3 config
 ├── screenshot.png - screenshot
 ├── tmux - terminal multiplexer configuration
 ├── x - x configuration, including urxvt and colourscheme
-├── yaourt - yaourt configuration
 └── zsh - shell configuration
 
 ```
