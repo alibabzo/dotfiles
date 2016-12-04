@@ -2,7 +2,7 @@
 i3startup
 
 # give plasma (and networkmanager) some time to start up
-sleep 3
+sleep 5
 
 i3 --shmlog-size=26214400 &
 
