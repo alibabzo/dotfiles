@@ -43,9 +43,9 @@ exec_always --no-startup-id feh --bg-fill /home/alistair/Pictures/hex.png
 exec_always --no-startup-id compton -bCcf --config /home/alistair/.config/compton/compton.conf
 exec_always --no-startup-id redshift
 exec --no-startup-id urxvtc -title "ncmpcpp-urxvtc" -e ncmpcpp
-for_window [Title="ncmpcpp-urxvtc"] move workspace $workspace10
+for_window [Title="ncmpcpp-urxvtc"] move workspace $d10
 exec --no-startup-id urxvtc -title "weechat-urxvtc" -e weechat
-for_window [Title="weechat-urxvtc"] move workspace $workspace4
+for_window [Title="weechat-urxvtc"] move workspace $d4
 
 # }}}
 
