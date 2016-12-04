@@ -1,0 +1,100 @@
+# {{{ Keybindings
+
+# Application launching
+bindsym $mod+Shift+x exec i3lock-fancy
+bindsym $mod+Return exec urxvtc
+bindsym $mod+Shift+f exec qutebrowser
+
+bindsym $mod+Shift+e exec "/usr/libexec/i3blocks/shutdown_menu -c"
+
+# rofi
+bindsym $mod+d exec rofi -show run -config ~/.config/rofi/launcher
+
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
+bindsym XF86AudioPlay exec --no-startup-id mpc toggle
+bindsym XF86AudioNext exec --no-startup-id mpc next
+bindsym XF86AudioPrevious exec --no-startup-id mpc prev
+bindsym XF86AudioStop exec --no-startup-id mpc stop
+bindsym Print exec screenshot
+
+# }}}
+
+# {{{ Bar
+
+bar {
+    i3bar_command i3bar -t
+    status_command i3blocks -c /home/alistair/.config/i3blocks/i3blocks.conf
+    colors {
+        background $tbg-color
+        separator #757575
+        #                   border              background          text
+        focused_workspace   $tbg-color          $tbg-color          $bar-text-color
+        inactive_workspace  $tbg-color          $tbg-color          $bar-inactive-text-color
+        urgent_workspace    $turgent-bg-color   $turgent-bg-color   $bar-text-color
+  }
+}
+# }}}
+
+# {{{ Startup
+
+exec_always --no-startup-id feh --bg-fill /home/alistair/Pictures/hex.png
+exec_always --no-startup-id compton -bCcf --config /home/alistair/.config/compton/compton.conf
+exec_always --no-startup-id redshift
+exec --no-startup-id urxvtc -title "ncmpcpp-urxvtc" -e ncmpcpp
+for_window [Title="ncmpcpp-urxvtc"] move workspace $workspace10
+exec --no-startup-id urxvtc -title "weechat-urxvtc" -e weechat
+for_window [Title="weechat-urxvtc"] move workspace $workspace4
+
+# }}}
+
+# {{{ Resize mode
+
+# resize window (you can also use the mouse for that)
+mode "" {
+    # These bindings trigger as soon as you enter the resize mode
+
+    # Pressing left will shrink the window’s width.
+    # Pressing right will grow the window’s width.
+    # Pressing up will shrink the window’s height.
+    # Pressing down will grow the window’s height.
+    bindsym h resize shrink width 10 px or 10 ppt
+    bindsym j resize grow height 10 px or 10 ppt
+    bindsym k resize shrink height 10 px or 10 ppt
+    bindsym l resize grow width 10 px or 10 ppt
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode ""
+
+# }}}
+
+# {{{ Other config
+
+assign [class="Firefox"] $d1
+assign [class="Atom"] $d3
+assign [class="Thunar"] $d5
+
+# }}}
+
+# {{{ i3-gaps
+# smart_gaps on
+for_window [class="^.*"] border pixel 2
+gaps inner 10
+gaps outer 4
+smart_borders on
+set $mode_gaps Toggle gaps: (1) on (2) off
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+    bindsym 1 mode "default", gaps inner all set 10, gaps outer all set 4
+    bindsym 2 mode "default", gaps inner all set 1, gaps outer all set 1
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# }}}

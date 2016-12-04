@@ -1,0 +1,28 @@
+bindsym $mod+Shift+f exec chromium
+bindsym $mod+Shift+Return exec konsole
+
+bindsym $mod+Shift+e exec "dbus-send --print-reply --dest=org.kde.ksmserver /KSMServer org.kde.KSMServerInterface.logout int32:1 int32:0 int32:1"
+
+workspace $d1 output $mainscreen
+workspace $d4 output $mainscreen
+workspace $d10 output $mainscreen
+workspace $d2 output $secondscreen
+workspace $d3 output $secondscreen
+
+new_window pixel 0
+
+# general application settings
+
+assign [class="chromium"] $d1
+assign [class="MonoDevelop"] $d3
+assign [class="nvim-qt"] $d3
+assign [class="Clementine"] $d10
+
+for_window [window_role="pop-up"] floating enable
+for_window [class="kcalc"] floating enable;
+for_window [class="Kmix"] floating enable;
+for_window [class="krunner"] floating enable;
+for_window [class="yakuake"] floating enable;
+
+exec chromium
+
