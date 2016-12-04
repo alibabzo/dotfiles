@@ -43,4 +43,5 @@ else
 fi
 
 urxvtd -q -o -f
-exec i3startup
+i3startup
+exec i3
