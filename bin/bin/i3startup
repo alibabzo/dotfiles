@@ -7,3 +7,6 @@ echo > ~/.config/i3/config
 cat ~/.config/i3/config-$I3_CONFIG-pre >> ~/.config/i3/config
 cat ~/.config/i3/config-shared >> ~/.config/i3/config
 cat ~/.config/i3/config-$I3_CONFIG-post >> ~/.config/i3/config
+
+i3 &
+read

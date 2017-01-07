@@ -1,16 +1,6 @@
-# screens
+# {{{ Variables
+
 set $mainscreen HDMI2
 set $secondscreen DP1
 
-font pango:Roboto 10
-
-set $d1 "1 - Internet"
-set $d2 "2 - Terminal"
-set $d3 "3 - Code"
-set $d4 "4 - Chat"
-set $d5 "5 - Files"
-set $d6 "6"
-set $d7 "7"
-set $d8 "8"
-set $d9 "9"
-set $d10 "10 - Music"
+# }}}

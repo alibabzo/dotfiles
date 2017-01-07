@@ -11,12 +11,29 @@ set $mod Mod4
 
 # Colours
 set $bg-color "#1b2b34"
+set $tbg-color "#19000044"
 set $inactive-bg-color "#1b2b34"
 set $text-color "#c0c5ce"
 set $bar-text-color "#ffffff"
 set $inactive-text-color "#676e7d"
 set $bar-inactive-text-color "#aaaaaa"
 set $urgent-bg-color "#e53935"
+set $turgent-bg-color "#e53935cc"
+
+# Font
+font pango:SFNS Display, FontAwesome 10
+
+# Workspace labels
+set $d1 "1 "
+set $d2 "2 "
+set $d3 "3 "
+set $d4 "4 "
+set $d5 "5 "
+set $d6 "6"
+set $d7 "7"
+set $d8 "8"
+set $d9 "9"
+set $d10 "10 "
 
 # }}}
 
@@ -102,6 +119,47 @@ hide_edge_borders both
 
 # application settings
 assign [class="MonoDevelop"] $d3
-assign [class="atom"] $d3
+assign [class="Atom"] $d3
 assign [class="nvim-qt"] $d3
+assign [class="Thunar"] $d5
+
+# }}}
+
+# {{{ Startup
+
+exec_always --no-startup-id compton -bCcf --config ~/.config/compton/compton.conf
+
+# }}}
+
+# {{{ Resize mode
+mode "" {
+    bindsym h resize shrink width 10 px or 10 ppt
+    bindsym j resize grow height 10 px or 10 ppt
+    bindsym k resize shrink height 10 px or 10 ppt
+    bindsym l resize grow width 10 px or 10 ppt
+
+# back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode ""
+
+# {{{ i3-gaps
+
+gaps inner 10
+gaps outer 4
+new_window none
+smart_borders on
+
+set $mode_gaps Toggle gaps: (1) on (2) off
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+    bindsym 1 mode "default", gaps inner all set 10, gaps outer all set 4
+        bindsym 2 mode "default", gaps inner all set 1, gaps outer all set 1
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
 # }}}
