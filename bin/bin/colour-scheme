@@ -1,0 +1,63 @@
+#!/bin/bash
+
+printhelp () {
+    echo $"printhelp: $0 {light|dark}"
+    exit 1;
+}
+
+nvim_command() {
+    msgpack-cli encode <(echo "[0,0,\"vim_command\",[\"$2\"]]") | netcat -U $1 2> /dev/null
+}
+
+nvim_all_command() {
+    for nvim in /tmp/nvim*/0; do
+        nvim_command $nvim "$1"
+    done
+}
+
+wallpaper_dark() {
+    WORKDIR=$HOME/.local/share/unsplash/dark/
+    DATE=$(date +%s)
+    mkdir -p $WORKDIR
+    wget -O ${WORKDIR}screen0-${DATE}.jpg -q https://unsplash.it/g/2560/1440?random
+    wget -O ${WORKDIR}screen1-${DATE}.jpg -q https://unsplash.it/g/1080/1920?random
+    nitrogen --head=0 --set-scaled ${WORKDIR}screen0-${DATE}.jpg
+    nitrogen --head=1 --set-scaled ${WORKDIR}screen1-${DATE}.jpg
+}
+
+wallpaper_light() {
+    WORKDIR=$HOME/.local/share/unsplash/light/
+    DATE=$(date +%s)
+    mkdir -p $WORKDIR
+    wget -O ${WORKDIR}screen0-${DATE}.jpg -q https://unsplash.it/2560/1440?random
+    wget -O ${WORKDIR}screen1-${DATE}.jpg -q https://unsplash.it/1080/1920?random
+    nitrogen --head=0 --set-scaled ${WORKDIR}screen0-${DATE}.jpg
+    nitrogen --head=1 --set-scaled ${WORKDIR}screen1-${DATE}.jpg
+}
+
+if [[ $# -ne 1 ]]; then
+    printhelp
+else
+    case "$1" in
+        dark)
+            if [[ $(cat $HOME/.config/colourscheme) == "dark" ]]; then exit 0; fi
+            echo "dark" > $HOME/.config/colourscheme
+            cp $HOME/.config/termite/config-dark $HOME/.config/termite/config
+            killall -USR1 termite
+            nvim_all_command "set background=dark"
+            xfconf-query -c xsettings -p /Net/ThemeName -s "Arc-Dark"
+            wallpaper_dark
+            ;;
+        light)
+            if [[ $(cat $HOME/.config/colourscheme) == "light" ]]; then exit 0; fi
+            echo "light" > $HOME/.config/colourscheme
+            cp $HOME/.config/termite/config-light $HOME/.config/termite/config
+            killall -USR1 termite
+            nvim_all_command "set background=light"
+            xfconf-query -c xsettings -p /Net/ThemeName -s "Arc"
+            wallpaper_light
+            ;;
+        *)
+            printhelp
+    esac
+fi

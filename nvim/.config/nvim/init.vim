@@ -125,8 +125,12 @@ set showcmd
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set background=dark
 set termguicolors
+if filereadable("/home/alistair/.config/colourscheme") && readfile("/home/alistair/.config/colourscheme") == ['dark']
+    set background=dark
+elseif filereadable("/home/alistair/.config/colourscheme") && readfile("/home/alistair/.config/colourscheme") == ['light']
+    set background=light
+endif
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -413,7 +417,7 @@ call dein#add('Shougo/dein.vim')
 call dein#add('tpope/vim-dispatch')
 call dein#add('scrooloose/syntastic')
 call dein#add('scrooloose/nerdtree')
-call dein#add('mhartington/oceanic-next')
+call dein#add('rakr/vim-one')
 call dein#add('vim-airline/vim-airline')
 call dein#add('Shougo/deoplete.nvim')
 call dein#add('zchee/deoplete-jedi')
@@ -424,6 +428,7 @@ call dein#add('neomake/neomake')
 call dein#add('bitc/vim-hdevtools')
 call dein#add('neovimhaskell/haskell-vim')
 call dein#add('eagletmt/neco-ghc')
+call dein#add('rust-lang/rust.vim')
 call dein#end()
 if dein#check_install()
   call dein#install()
@@ -437,9 +442,9 @@ call deoplete#enable()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Airline
 set noshowmode " Don't show mode natively
-let g:airline_theme='oceanicnext' " Set airline theme
 let g:airline#extensions#tabline#enabled = 1 " Enable buffer line
 let g:airline_powerline_fonts = 1 " Enable powerline fonts
+let g:airline_theme='one'
 
 " Deoplete
 autocmd FileType python nnoremap <leader>y :0,$!yapf<Cr> " Enable python syntax completion
@@ -449,12 +454,11 @@ set completeopt-=preview " Disable preview
 
 " Syntastic
 let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues'] " Enable csharp syntax checker
-let g:syntastic_python_checkers = ['python'] " Enable python syntax checker
-let g:syntastic_sh_checkers = ['sh'] " Enable bash syntax checker
+let g:syntastic_asm_checkers = ['nasm/nasm'] " Enable nasm syntax checker
 syntax enable
 
 " Oceanic Next
-colorscheme OceanicNext
+colorscheme one
 
 " NeomakeHaskell
 augroup NeomakeHaskell
