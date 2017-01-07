@@ -1,5 +1,6 @@
 ! Cursor
 Xcursor.theme:  Paper
+Xcursor.size: 48
 
 ! XTerm
 xterm*faceName: Hack:pixelsize=12
