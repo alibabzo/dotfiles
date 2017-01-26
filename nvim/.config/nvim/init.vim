@@ -410,28 +410,26 @@ endfunction
 " => Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable plugins
-set rtp+=/usr/share/vim/vimfiles
-
-call dein#begin(expand('~/.cache/dein'))
-call dein#add('Shougo/dein.vim')
-call dein#add('tpope/vim-dispatch')
-call dein#add('scrooloose/syntastic')
-call dein#add('scrooloose/nerdtree')
-call dein#add('rakr/vim-one')
-call dein#add('vim-airline/vim-airline')
-call dein#add('Shougo/deoplete.nvim')
-call dein#add('zchee/deoplete-jedi')
-call dein#add('omnisharp/omnisharp-vim', {'build':'cd server && xbuild'})
-call dein#add('https://gitlab.com/mixedCase/deoplete-omnisharp.git')
-call dein#add('Shougo/denite.nvim')
-call dein#add('neomake/neomake')
-call dein#add('bitc/vim-hdevtools')
-call dein#add('neovimhaskell/haskell-vim')
-call dein#add('eagletmt/neco-ghc')
-call dein#add('rust-lang/rust.vim')
-call dein#end()
-if dein#check_install()
-  call dein#install()
+set runtimepath+=/home/alistair/.cache/dein/repos/github.com/Shougo/dein.vim
+if dein#load_state(expand('~/.cache/dein'))
+    call dein#begin(expand('~/.cache/dein'))
+    call dein#add('Shougo/dein.vim')
+    call dein#add('tpope/vim-dispatch')
+    call dein#add('scrooloose/syntastic')
+    call dein#add('scrooloose/nerdtree')
+    call dein#add('reedes/vim-colors-pencil')
+    call dein#add('vim-airline/vim-airline')
+    call dein#add('Shougo/deoplete.nvim')
+    call dein#add('zchee/deoplete-jedi')
+    call dein#add('Shougo/denite.nvim')
+    call dein#add('neomake/neomake')
+    call dein#add('bitc/vim-hdevtools')
+    call dein#add('neovimhaskell/haskell-vim')
+    call dein#add('eagletmt/neco-ghc')
+    call dein#add('rust-lang/rust.vim')
+    call dein#add('LnL7/vim-nix')
+    call dein#end()
+    call dein#save_state()
 endif
 
 call deoplete#enable()
@@ -444,7 +442,7 @@ call deoplete#enable()
 set noshowmode " Don't show mode natively
 let g:airline#extensions#tabline#enabled = 1 " Enable buffer line
 let g:airline_powerline_fonts = 1 " Enable powerline fonts
-let g:airline_theme='one'
+let g:airline_theme='pencil'
 
 " Deoplete
 autocmd FileType python nnoremap <leader>y :0,$!yapf<Cr> " Enable python syntax completion
@@ -458,7 +456,7 @@ let g:syntastic_asm_checkers = ['nasm/nasm'] " Enable nasm syntax checker
 syntax enable
 
 " Oceanic Next
-colorscheme one
+colorscheme pencil
 
 " NeomakeHaskell
 augroup NeomakeHaskell
