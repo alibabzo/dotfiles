@@ -1,10 +1,26 @@
+
+
 #
 # User configuration sourced by interactive shells
 #
 
-# thefuck
-eval "$(thefuck --alias)"
-eval "$(thefuck --alias shit)"
+# Source zim
+if [[ -s ${ZDOTDIR:-${HOME}}/.zim/init.zsh ]]; then
+  source ${ZDOTDIR:-${HOME}}/.zim/init.zsh
+fi
+
+# vim keybindings
+bindkey -v
+export KEYTIMEOUT=1
+
+# powerlevel9k
+POWERLEVEL9K_INSTALLATION_PATH=~/.config/zsh/.zim/modules/prompt/external-themes/powerlevel9k/powerlevel9k.zsh-theme
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(background_jobs context dir vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status vi_mode)
+DEFAULT_USER=alistair
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
+POWERLEVEL9K_SHORTEN_DELIMITER=""
+POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
 
 # Files
 alias v='nvim'
@@ -47,4 +63,3 @@ extract () {
         echo "'$1' is not a valid file"
     fi
 }
-
