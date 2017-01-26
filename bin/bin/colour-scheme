@@ -1,12 +1,13 @@
-#!/bin/bash
+#!/usr/bin/env bash
+COLOUR_FILE="${HOME}/.config/colourscheme"
 
 printhelp () {
-    echo $"printhelp: $0 {light|dark}"
+    echo $"$0 {light|dark}"
     exit 1;
 }
 
 nvim_command() {
-    msgpack-cli encode <(echo "[0,0,\"vim_command\",[\"$2\"]]") | netcat -U $1 2> /dev/null
+    echo "[0,0,\"vim_command\",[\"$2\"]]" | json2msgpack | nc -U $1 2> /dev/null
 }
 
 nvim_all_command() {
@@ -40,7 +41,7 @@ if [[ $# -ne 1 ]]; then
 else
     case "$1" in
         dark)
-            if [[ $(cat $HOME/.config/colourscheme) == "dark" ]]; then exit 0; fi
+            if [[ -e "$COLOUR_FILE" && $(cat $COLOUR_FILE) == "dark" ]]; then exit 0; fi
             echo "dark" > $HOME/.config/colourscheme
             cp $HOME/.config/termite/config-dark $HOME/.config/termite/config
             killall -USR1 termite
@@ -49,12 +50,12 @@ else
             wallpaper_dark
             ;;
         light)
-            if [[ $(cat $HOME/.config/colourscheme) == "light" ]]; then exit 0; fi
+            if [[ -e "$COLOUR_FILE" && $(cat $COLOUR_FILE) == "light" ]]; then exit 0; fi
             echo "light" > $HOME/.config/colourscheme
             cp $HOME/.config/termite/config-light $HOME/.config/termite/config
             killall -USR1 termite
             nvim_all_command "set background=light"
-            xfconf-query -c xsettings -p /Net/ThemeName -s "Arc"
+            xfconf-query -c xsettings -p /Net/ThemeName -s "Arc-Darker"
             wallpaper_light
             ;;
         *)
