@@ -8,39 +8,30 @@ clickable_url = true
 scrollback_lines = 1000
 
 [colors]
-foreground      = #383A42
-foreground_bold = #383A42
-cursor          = #383A42
-background      = #F9F9F9
+background = #f1f1f1
+foreground = #424242
+cursorColor = #20bbfc
 
-# black
-color0  = #000000
-color8  = #5C6370
+color0 = #212121
+color8 = #424242
 
-# red
-color1  = #E45649
-color9  = #E45649
+color1 = #c30771
+color9 = #fb007a
 
-# green
-color2  = #50A14F
-color10 = #50A14F
+color2 = #10a778
+color10 = #5fd7af
 
-# yellow
-color3  = #986801
-color11 = #986701
+color3 = #a89c14
+color11 = #f3e430
 
-# blue
-color4  = #4078F2
-color12 = #4078F2
+color4 = #008ec4
+color12 = #20bbfc
 
-# magenta
-color5  = #A626A4
-color13 = #A626A4
+color5 = #523c79
+color13 = #6855de
 
-# cyan
-color6  = #0184BC
-color14 = #0184BC
+color6 = #20a5ba
+color14 = #4fb8cc
 
-# white
-color7  = #A0A1A7
-color15 = #FFFFFF
+color7 = #d9d9d9
+color15 = #f1f1f1
