@@ -8,6 +8,7 @@ import Control.Arrow (second)
 import System.IO
 import XMonad
 import XMonad.Actions.CycleWS
+import XMonad.Actions.PhysicalScreens
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.FadeInactive
@@ -194,10 +195,10 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) =
   ] ++
   -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
   -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
-  [ ((m .|. modMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
-  | (key, sc) <- zip [xK_e, xK_w, xK_r] [0 ..]
-  , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]
-  ]
+   [((m .|. modMask, k), f sc)
+   | (k, sc) <- zip [xK_w, xK_e, xK_r] [0..]
+   , (f, m) <- [(viewScreen, 0), (sendToScreen, shiftMask)]
+   ]
 
 ------------------------------------------------------------------------
 -- Mouse bindings
