@@ -3,10 +3,10 @@
 rofi.modi: run,ssh
 rofi.fullscreen: true
 rofi.lines: 3
-rofi.terminal: urxvt
+rofi.terminal: termite
 rofi.padding: 200
 rofi.eh: 2
-rofi.font: SFNS Display 18
+rofi.font: Roboto 18
 
 ! ------------------------------------------------------------------------------
 ! ROFI Color theme
