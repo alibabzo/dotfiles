@@ -14,7 +14,6 @@ import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.FadeInactive
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
-import XMonad.Hooks.SetWMName
 import XMonad.Layout.Fullscreen hiding (fullscreenEventHook)
 import XMonad.Layout.PerScreen
 import XMonad.Layout.Gaps
@@ -272,7 +271,7 @@ main = do
              , ppSep = "   "
              }
     , manageHook = manageDocks <+> myManageHook
-    , startupHook = setWMName "LG3D" <+> myStartupHook
+    , startupHook = myStartupHook
     , handleEventHook = docksEventHook <+> fullscreenEventHook
     }
 
