@@ -95,6 +95,9 @@ set hlsearch
 " Makes search act like search in modern browsers
 set incsearch
 
+" Makes replacements display dynamically
+set inccommand=nosplit
+
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
 
@@ -455,7 +458,7 @@ let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues'] " Enable csharp s
 let g:syntastic_asm_checkers = ['nasm/nasm'] " Enable nasm syntax checker
 syntax enable
 
-" Oceanic Next
+" Enable pencil colourscheme
 colorscheme pencil
 
 " NeomakeHaskell
