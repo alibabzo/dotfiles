@@ -20,6 +20,6 @@ rofi.color-urgent:                   argb:00e53935, #676e7d, argb:00e53935, #e53
 ! Color scheme for active row
 rofi.color-active:                   argb:002f343f, #f3f4f5, argb:002f343f, argb:002f343f, #f3f4f5
 ! Color scheme window
-rofi.color-window:                   argb:882f343f, #2f343f, argb:002f343f
+rofi.color-window:                   argb:ee2f343f, #2f343f, argb:002f343f
 ! Separator style (none, dash, solid)
 rofi.separator-style:                solid
