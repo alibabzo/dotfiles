@@ -1,0 +1,6 @@
+alias v='nvim'
+alias mkexec='chmod +x'
+alias lg='ls | grep'
+alias setclip='xclip -selection c'
+alias getclip='xclip -selection clipboard -o'
+alias vinit='nvim $HOME/.config/nvim/init.vim'
