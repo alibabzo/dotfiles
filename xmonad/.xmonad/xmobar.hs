@@ -23,5 +23,5 @@ Config {
     ],
     sepChar = "%",
     alignSep = "}{",
-    template = "  <action=`xfce4-session-logout` button=1><fn=1><raw=1:/></fn></action>  } %UnsafeStdinReader% { %coretemp%   %loadavg%   %date%   "
+    template = "  %UnsafeStdinReader%  } { %coretemp%   %loadavg%   %date%   "
        }
