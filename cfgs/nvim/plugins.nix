@@ -33,17 +33,6 @@
     dependencies = [];
   };
 
-  nerdtree = vimUtils.buildVimPluginFrom2Nix {
-    name = "vim-vue-2017-01-02";
-    src = fetchFromGitHub {
-      owner = "scrooloose";
-      repo = "nerdtree";
-      rev = "281701021c5001332a862da80175bf585d24e2e8";
-      sha256 = "07zwhzna5g22scjy2mq4clsgpkfavpgxiqvnfbfydgc52h73l27r";
-    };
-    dependencies = [];
-  };
-
   vim-colors-pencil = vimUtils.buildVimPluginFrom2Nix {
     name = "vim-colors-pencil-2017-01-12";
     src = fetchFromGitHub {
