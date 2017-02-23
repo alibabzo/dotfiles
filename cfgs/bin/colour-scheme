@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+COLOUR_FILE="${HOME}/.config/colourscheme"
+
+printhelp () {
+    echo $"$0 {light|dark}"
+    exit 1;
+}
+
+nvim_command() {
+    echo "[0,0,\"vim_command\",[\"$2\"]]" | json2msgpack | nc -U $1 2> /dev/null
+}
+
+nvim_all_command() {
+    for nvim in /tmp/nvim*/0; do
+        nvim_command $nvim "$1"
+    done
+}
+
+wallpaper_dark() {
+    WORKDIR=$HOME/.local/share/unsplash/dark/
+    DATE=$(date +%s)
+    rm -r $WORKDIR
+    mkdir -p $WORKDIR
+    wget -O ${WORKDIR}screen0-${DATE}.jpg -q https://source.unsplash.com/random/2560x1440
+    wget -O ${WORKDIR}screen1-${DATE}.jpg -q https://source.unsplash.com/random/1080x1920
+    convert ${WORKDIR}screen0-${DATE}.jpg -colorspace gray ${WORKDIR}screen0-${DATE}-convert.jpg
+    convert ${WORKDIR}screen1-${DATE}.jpg -colorspace gray ${WORKDIR}screen1-${DATE}-convert.jpg
+    nitrogen --head=0 --set-scaled ${WORKDIR}screen0-${DATE}-convert.jpg 2> /dev/null
+    nitrogen --head=1 --set-scaled ${WORKDIR}screen1-${DATE}-convert.jpg 2> /dev/null
+}
+
+wallpaper_light() {
+    WORKDIR=$HOME/.local/share/unsplash/light/
+    DATE=$(date +%s)
+    rm -r $WORKDIR
+    mkdir -p $WORKDIR
+    wget -O ${WORKDIR}screen0-${DATE}.jpg -q https://source.unsplash.com/random/2560x1440
+    wget -O ${WORKDIR}screen1-${DATE}.jpg -q https://source.unsplash.com/random/1080x1920
+    nitrogen --head=0 --set-scaled ${WORKDIR}screen0-${DATE}.jpg 2> /dev/null
+    nitrogen --head=1 --set-scaled ${WORKDIR}screen1-${DATE}.jpg 2> /dev/null
+}
+
+if [[ $# -ne 1 ]]; then
+    printhelp
+else
+    case "$1" in
+        dark)
+            if [[ -e "$COLOUR_FILE" && $(cat $COLOUR_FILE) == "dark" ]]; then exit 0; fi
+            echo "dark" > $HOME/.config/colourscheme
+            cp $HOME/.config/termite/config-dark $HOME/.config/termite/config
+            killall -USR1 termite
+            nvim_all_command "set background=dark"
+            xfconf-query -c xsettings -p /Net/ThemeName -s "Arc-Dark"
+            wallpaper_dark
+            ;;
+        light)
+            if [[ -e "$COLOUR_FILE" && $(cat $COLOUR_FILE) == "light" ]]; then exit 0; fi
+            echo "light" > $HOME/.config/colourscheme
+            cp $HOME/.config/termite/config-light $HOME/.config/termite/config
+            killall -USR1 termite
+            nvim_all_command "set background=light"
+            xfconf-query -c xsettings -p /Net/ThemeName -s "Arc-Darker"
+            wallpaper_light
+            ;;
+        *)
+            printhelp
+    esac
+fi

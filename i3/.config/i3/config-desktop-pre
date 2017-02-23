@@ -1,6 +1,0 @@
-# {{{ Variables
-
-set $mainscreen HDMI2
-set $secondscreen DP1
-
-# }}}
