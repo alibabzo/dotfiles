@@ -34,6 +34,7 @@ I manage my dotfiles with [`home-manager`](https://github.com/rycee/home-manager
 │   ├── bin - scripts
 │   ├── compton - window compositor configuration
 │   ├── fish - shell configuration
+│   ├── nvim - neovim configuration
 │   ├── rofi - launcher configuration
 │   ├── termite - terminal configuration
 │   ├── xkb - custom keyboard layout
@@ -41,10 +42,8 @@ I manage my dotfiles with [`home-manager`](https://github.com/rycee/home-manager
 ├── config.nix - nixpkgs configuration
 ├── home.nix - config for home-manager (most stuff is in here)
 ├── pkgs
-│   ├── home-manager - link to home-manager package
-│   └── nvim-config - neovim configuration
+│   └── home-manager - link to home-manager package
 └── README.md - what you're reading
-
 ```
 # Screenshot
 [![homescreen](https://github.com/alibabzo/dotfiles/raw/master/screenshot.png)](screenshot)
