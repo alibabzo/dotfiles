@@ -4,6 +4,7 @@
 import qualified Data.Map as M
 import Graphics.X11.ExtraTypes.XF86
 import System.Exit
+import System.Posix.Unistd
 import Control.Arrow (second)
 import System.IO
 import XMonad
@@ -34,7 +35,10 @@ import XMonad.Util.Run (spawnPipe)
 myTerminal = "termite"
 
 -- The command to lock the screen or show the screensaver.
-myLogout = "xfce4-session-logout"
+myLogout hostname = if hostname == "a-laptop" then
+                        "shutdown_menu"
+                    else
+                        "xfce4-session-logout"
 
 -- The command to use as a launcher, to launch commands that don't have
 -- preset keybindings.
@@ -75,7 +79,7 @@ myWorkspaces =
 --
 myManageHook =
   composeAll
-    [ className =? "Chromium" --> doShift (myWorkspaces !! 0)
+    [ className =? "chromium-browser" --> doShift (myWorkspaces !! 0)
     , className =? "Emacs" --> doShift (myWorkspaces !! 2)
     , resource =? "desktop_window" --> doIgnore
     , isFullscreen --> (doF W.focusDown <+> doFullFloat)
@@ -92,7 +96,7 @@ myManageHook =
 -- which denotes layout choice.
 --
 
-myLayout = smartBorders $ avoidStruts $ ifWider 1920 widelayouts talllayouts
+myLayout = smartBorders $ avoidStruts $ ifWider 1080 widelayouts talllayouts
     where
         widelayouts = spacing 10 (ThreeColMid 1 (3 / 100) (1 / 2) ||| spiral (6 / 7) ||| Tall 1 (3 / 100) (1 / 2)) ||| noBorders Full
         talllayouts = spacing 10 (Mirror (Tall 1 (3 / 100) (1 / 2))) ||| noBorders Full
@@ -130,7 +134,7 @@ myBorderWidth = 0
 --
 myModMask = mod4Mask
 
-myKeys conf@XConfig {XMonad.modMask = modMask} =
+myKeys hostname conf@XConfig {XMonad.modMask = modMask} =
   M.fromList $
   ----------------------------------------------------------------------
   -- Custom key bindings
@@ -138,12 +142,18 @@ myKeys conf@XConfig {XMonad.modMask = modMask} =
   -- Start a terminal.  Terminal to start is specified by myTerminal variable.
   [ ((modMask .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
   -- Lock the screen using command specified by myLogout.
-  , ((modMask .|. shiftMask, xK_q), spawn myLogout)
+  , ((modMask .|. shiftMask, xK_q), spawn (myLogout hostname))
   -- Spawn the launcher using command specified by myLauncher.
   -- Use this to launch programs without a key binding.
   , ((modMask, xK_d), spawn myLauncher)
   -- Start a browser. Browser to start is specified by myBrowser variable.
   , ((modMask .|. shiftMask, xK_c), spawn myBrowser)
+  -- Mute volume
+  , ((0, xF86XK_AudioMute), spawn "pactl set-sink-mute 0 toggle")
+  -- Decrease volume
+  , ((0, xF86XK_AudioLowerVolume), spawn "pactl set-sink-volume 0 -5%")
+  --Increase volume
+  , ((0, xF86XK_AudioRaiseVolume), spawn "pactl set-sink-volume 0 +5%")
   --------------------------------------------------------------------
   -- "Standard" xmonad key bindings
   --
@@ -180,7 +190,7 @@ myKeys conf@XConfig {XMonad.modMask = modMask} =
   -- Decrement the number of windows in the master area.
   , ((modMask, xK_period), sendMessage (IncMasterN (-1)))
   -- Restart xmonad.
-  , ((modMask .|. shiftMask, xK_r), spawn "xmonad --recompile && xmonad --restart")
+  , ((modMask .|. shiftMask, xK_r), restart "xmonad" True)
   ] ++
   -- mod-[1..9], Switch to workspace N
   -- mod-shift-[1..9], Move client to workspace N
@@ -251,6 +261,7 @@ myStartupHook = return ()
 -- Run xmonad with all the defaults we set up.
 --
 main = do
+  host <- fmap nodeName getSystemID
   xmproc <- spawnPipe "xmobar"
   xmonad $
     docks $ defaults
@@ -269,6 +280,7 @@ main = do
     , manageHook = myManageHook
     , startupHook = myStartupHook
     , handleEventHook = fullscreenEventHook
+    , keys = myKeys host
     }
 
 ------------------------------------------------------------------------
@@ -289,8 +301,6 @@ defaults =
   , workspaces = myWorkspaces
   , normalBorderColor = myNormalBorderColor
   , focusedBorderColor = myFocusedBorderColor
-    -- key bindings
-  , keys = myKeys
   , mouseBindings = myMouseBindings
     -- hooks, layouts
   , layoutHook = myLayout
