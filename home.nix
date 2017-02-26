@@ -1,10 +1,10 @@
 { pkgs, ... }:
 with import <nixpkgs> { };
 let
-  copyFilesInstallPhase = ''
-    mkdir $out
-    cp -a . $out
-  '';
+  script = source: {
+    inherit source;
+    mode = "0755";
+  };
 
   fisherman = pkgs.stdenv.mkDerivation {
     name = "fisherman";
@@ -14,22 +14,28 @@ let
       owner = "fisherman";
       sha256 = "00a1vp7w2kjargg7ijjm7syrbxn716dp7qyn2635d62fqmbdd41c";
     };
-    installPhase = copyFilesInstallPhase;
+    installPhase = ''
+      mkdir $out
+      cp -a . $out
+    '';
   };
 
 in
 {
   home.packages = with pkgs; [
     acpi
+    bc
     chromium
     compton
     coreutils
     emacs
+    feh
     font-awesome-ttf
     ghc
     gimp-with-plugins
     git
     hexchat
+    haskellPackages.hindent
     haskellPackages.hlint
     htop
     imagemagick
@@ -50,6 +56,7 @@ in
     psmisc
     python
     python3
+    ripgrep
     roboto
     rofi
     rustc
@@ -58,12 +65,15 @@ in
     stow
     termite
     vlc
+    weechat
+    wirelesstools
     xarchiver
     xclip
     xdotool
     xorg.xev
     xorg.xinput
     xorg.xkbcomp
+    xorg.xmessage
     xorg.xset
   ];
 
@@ -82,9 +92,13 @@ in
   };
 
   home.file = {
-    "bin/colour-scheme".source = ./cfgs/bin/colour-scheme;
-    "bin/colour-scheme-boot".source = ./cfgs/bin/colour-scheme-boot;
-    "bin/init_keyboard".source = ./cfgs/bin/init_keyboard;
+    "bin/colour-scheme" = script ./cfgs/bin/colour-scheme;
+    "bin/colour-scheme-boot" = script ./cfgs/bin/colour-scheme-boot;
+    "bin/init_keyboard" = script ./cfgs/bin/init_keyboard;
+    "bin/shutdown_menu" = script ./cfgs/bin/shutdown_menu;
+    ".config/xmobar/scripts/wireless.sh" = script ./cfgs/xmonad/scripts/wireless.sh;
+    ".config/xmobar/scripts/volume.sh" = script ./cfgs/xmonad/scripts/volume.sh;
+    ".config/xmobar/scripts/battery.sh" = script ./cfgs/xmonad/scripts/battery.sh;
     ".config/xmonad/xmonad.hs".source = ./cfgs/xmonad/xmonad.hs;
     ".config/xmobar/xmobarrc".source = ./cfgs/xmonad/xmobar.hs;
     ".config/compton.conf".source = ./cfgs/compton/compton.conf;
