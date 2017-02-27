@@ -31,7 +31,6 @@ in
     emacs
     feh
     font-awesome-ttf
-    ghc
     gimp-with-plugins
     git
     hexchat
@@ -97,9 +96,11 @@ in
     "bin/init_keyboard" = script ./cfgs/bin/init_keyboard;
     "bin/shutdown_menu" = script ./cfgs/bin/shutdown_menu;
     ".config/xmobar/scripts/wireless.sh" = script ./cfgs/xmonad/scripts/wireless.sh;
+    ".config/xmobar/scripts/load.sh" = script ./cfgs/xmonad/scripts/load.sh;
     ".config/xmobar/scripts/volume.sh" = script ./cfgs/xmonad/scripts/volume.sh;
     ".config/xmobar/scripts/battery.sh" = script ./cfgs/xmonad/scripts/battery.sh;
     ".config/xmonad/xmonad.hs".source = ./cfgs/xmonad/xmonad.hs;
+    ".config/xmonad/lib/XMobar.hs".source = ./cfgs/xmonad/lib/XMobar.hs;
     ".config/xmobar/xmobarrc".source = ./cfgs/xmonad/xmobar.hs;
     ".config/compton.conf".source = ./cfgs/compton/compton.conf;
     ".config/rofi/launcher".source = ./cfgs/rofi/launcher;
