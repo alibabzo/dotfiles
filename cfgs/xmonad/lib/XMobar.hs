@@ -42,7 +42,7 @@ xmobarLoad :: String -> Integer -> String
 xmobarLoad = xmobarScript "sh" [ "-c", "~/.config/xmobar/scripts/load.sh" ]
 
 xmobarNetwork :: String -> String -> String -> Integer -> String
-xmobarNetwork lan wlan = xmobarScript "sh" [ "-c", "~/.config/xmobar/scripts/network.sh", lan, wlan ]
+xmobarNetwork lan wlan = xmobarScript "sh" [ "-c", "~/.config/xmobar/scripts/network.sh " ++ lan ++ " " ++ wlan ]
 
 xmobarVolume :: String -> Integer -> String
 xmobarVolume = xmobarScript "sh" [ "-c", "~/.config/xmobar/scripts/volume.sh" ]
@@ -80,7 +80,7 @@ xmobarTemplate "a-laptop" = xmobarCommands
     [ xmobarStdin
     , xmobarLoad "load" 100
     , xmobarCoreTemp 100
-    , xmobarNetwork "enp0s25" "wlp3s0" "network" 600
+    , xmobarNetwork "enp0s25" "wlp2s0" "network" 600
     , xmobarVolume "volume" 30
     , xmobarBattery "battery" 600
     , xmobarDate 100
