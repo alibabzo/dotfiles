@@ -1,35 +1,39 @@
 ------------------------------------------------------------------------
 -- Imports
-
-import qualified Data.Map as M (fromList, Map)
 import qualified Data.List as List (concat, intercalate)
+import qualified Data.Map as M (fromList, Map)
 
-import Graphics.X11.ExtraTypes.XF86 (xF86XK_AudioLowerVolume, xF86XK_AudioMute, xF86XK_AudioRaiseVolume)
+import GHC.IO.Encoding as GIO (setFileSystemEncoding, char8)
+import Graphics.X11.ExtraTypes.XF86
+       (xF86XK_AudioLowerVolume, xF86XK_AudioMute,
+        xF86XK_AudioRaiseVolume)
 import Network.HostName (getHostName)
 import System.IO (hPutStrLn)
 import Text.Printf (printf)
-import GHC.IO.Encoding as GIO (setFileSystemEncoding, char8)
 
 import XMonad
 
 import XMonad.Actions.PhysicalScreens (viewScreen, sendToScreen)
 import XMonad.Actions.UpdatePointer (updatePointer)
 
-import XMonad.Hooks.DynamicLog (dynamicLogWithPP, pad, ppCurrent, ppVisible, ppUrgent, ppHidden, ppLayout, ppOutput, ppSep, ppTitle, ppWsSep, shorten, xmobarColor)
+import XMonad.Hooks.DynamicLog
+       (dynamicLogWithPP, pad, ppCurrent, ppVisible, ppUrgent, ppHidden,
+        ppLayout, ppOutput, ppSep, ppTitle, ppWsSep, shorten, xmobarColor)
 import XMonad.Hooks.EwmhDesktops (fullscreenEventHook)
 import XMonad.Hooks.FadeInactive (fadeInactiveLogHook)
 import XMonad.Hooks.ManageDocks (avoidStruts, docks)
 import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat)
 
-import XMonad.Layout.Fullscreen hiding (fullscreenEventHook)
-import XMonad.Layout.PerScreen (ifWider)
-import XMonad.Layout.NoBorders (noBorders)
-import XMonad.Layout.Spacing (spacing)
 import XMonad.Layout.Gaps (gaps, Direction2D(U, D, L, R))
+import XMonad.Layout.NoBorders (noBorders)
+import XMonad.Layout.PerScreen (ifWider)
+import XMonad.Layout.Spacing (spacing)
 import XMonad.Layout.Spiral (spiral)
 import XMonad.Layout.ThreeColumns (ThreeCol(ThreeColMid))
 
-import qualified XMonad.StackSet as W (focusDown, focusMaster, focusUp, view, shift, sink, swapDown, swapMaster, swapUp)
+import qualified XMonad.StackSet as W
+       (focusDown, focusMaster, focusUp, view, shift, sink, swapDown,
+        swapMaster, swapUp)
 
 import XMonad.Util.Run (spawnPipe)
 
@@ -37,45 +41,56 @@ import XMobar (xmobar)
 
 ------------------------------------------------------------------------
 -- Variables
-
 myModMask = mod4Mask
+
 -- Terminal
 myTerminal = "termite"
+
 -- Logout command
-myLogout hostname = if hostname == "a-laptop" then
-                        "shutdown_menu"
-                    else
-                        "xfce4-session-logout"
+myLogout hostname =
+  if hostname == "a-laptop"
+    then "shutdown_menu"
+    else "xfce4-session-logout"
+
 -- Launcher
 myLauncher = "rofi -show drun -config ~/.config/rofi/launcher"
+
 -- Browser
 myBrowser = "chromium"
+
 -- Gap size (px)
 myGaps = 5
+
 -- Width of the window border in pixels.
 myBorderWidth = 0
 
 -- Colours
 xmobarTitleColor = "#b2b2b2"
+
 myNormalBorderColor = "#D39A78"
+
 myFocusedBorderColor = myNormalBorderColor
+
 xmobarVisibleWorkspaceColor = "#b2b2b2"
+
 xmobarUrgentWorkspaceColor = "#e32791"
+
 xmobarCurrentWorkspaceColor = xmobarFgColor
+
 xmobarInactiveWorkspaceColor = "#d9d9d9"
+
 xmobarFgColor = "#e5e6e6"
+
 xmobarBgColor = "#212121"
+
 xmobarFont = "xft:Roboto:size=10"
 
 ------------------------------------------------------------------------
 -- Workspaces
-
 myWorkspaces =
   clickable $
   ["1 <fn=1>\xf268</fn> ", "2 <fn=1>\xf120</fn> ", "3 <fn=1>\xf121</fn> "] ++
---  map (\x -> show x ++ " <fn=1>\xf108</fn> ") [4 .. 8] ++
-  map show [4..9] ++
-  ["10 <fn=1>\xf001</fn> "]
+  map show [4 .. 9] ++ ["10 <fn=1>\xf001</fn> "]
   where
     clickable l =
       [ "<action=xdotool key super+" ++
@@ -85,7 +100,6 @@ myWorkspaces =
 
 ------------------------------------------------------------------------
 -- Window rules
-
 myManageHook =
   composeAll
     [ className =? "chromium-browser" --> doShift (myWorkspaces !! 0)
@@ -96,16 +110,22 @@ myManageHook =
 
 ------------------------------------------------------------------------
 -- Layouts
-
 myLayout = avoidStruts $ ifWider 1080 widelayouts talllayouts
-    where
-        widelayouts = gaps gs $ spacing myGaps (ThreeColMid 1 (3 / 100) (1 / 2) ||| spiral (6 / 7) ||| Tall 1 (3 / 100) (1 / 2)) ||| noBorders Full
-        talllayouts = gaps gs $ spacing myGaps (Mirror (Tall 1 (3 / 100) (1 / 2))) ||| noBorders Full
-        gs = [(U, myGaps), (D, myGaps), (L, myGaps), (R, myGaps)]
+  where
+    widelayouts =
+      gaps gs $
+      spacing
+        myGaps
+        (ThreeColMid 1 (3 / 100) (1 / 2) |||
+         spiral (6 / 7) ||| Tall 1 (3 / 100) (1 / 2)) |||
+      noBorders Full
+    talllayouts =
+      gaps gs $
+      spacing myGaps (Mirror (Tall 1 (3 / 100) (1 / 2))) ||| noBorders Full
+    gs = [(U, myGaps), (D, myGaps), (L, myGaps), (R, myGaps)]
 
 ------------------------------------------------------------------------
 -- Key bindings
-
 myKeys hostname conf@XConfig {XMonad.modMask = modMask} =
   M.fromList $
   ----------------------------------------------------------------------
@@ -170,55 +190,54 @@ myKeys hostname conf@XConfig {XMonad.modMask = modMask} =
   ] ++
   -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
   -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
-   [((m .|. modMask, k), f sc)
-   | (k, sc) <- zip [xK_w, xK_e, xK_r] [0..]
-   , (f, m) <- [(viewScreen, 0), (sendToScreen, shiftMask)]
-   ]
+  [ ((m .|. modMask, k), f sc)
+  | (k, sc) <- zip [xK_w, xK_e, xK_r] [0 ..]
+  , (f, m) <- [(viewScreen, 0), (sendToScreen, shiftMask)]
+  ]
 
 ------------------------------------------------------------------------
 -- Mouse bindings
-
 myFocusFollowsMouse = True
 
 myMouseBindings XConfig {XMonad.modMask = modMask} =
   M.fromList
     -- mod-button1, Set the window to floating mode and move by dragging
-  [ ((modMask, button1), \ w -> focus w >> mouseMoveWindow w)
+    [ ((modMask, button1), \w -> focus w >> mouseMoveWindow w)
     -- mod-button2, Raise the window to the top of the stack
-  , ((modMask, button2), \ w -> focus w >> windows W.swapMaster)
+    , ((modMask, button2), \w -> focus w >> windows W.swapMaster)
     -- mod-button3, Set the window to floating mode and resize by dragging
-  , ((modMask, button3), \ w -> focus w >> mouseResizeWindow w)
-  ]
+    , ((modMask, button3), \w -> focus w >> mouseResizeWindow w)
+    ]
 
 ------------------------------------------------------------------------
 -- Status bars and logging
-
-myLogHook h = fadeInactiveLogHook 0.8
-    >> dynamicLogWithPP (def
-    { ppOutput = hPutStrLn h
-    , ppCurrent = xmobarColor "white" ""
-    , ppVisible = xmobarColor xmobarVisibleWorkspaceColor ""
-    , ppHidden = xmobarColor xmobarInactiveWorkspaceColor ""
-    , ppTitle = xmobarColor xmobarTitleColor "" . shorten 100
-    , ppUrgent = xmobarColor xmobarUrgentWorkspaceColor ""
-    , ppSep = "   "
-    })
-    >> updatePointer (0.5, 0.5) (0, 0)
+myLogHook h =
+  fadeInactiveLogHook 0.8 >>
+  dynamicLogWithPP
+    (def
+     { ppOutput = hPutStrLn h
+     , ppCurrent = xmobarColor "white" ""
+     , ppVisible = xmobarColor xmobarVisibleWorkspaceColor ""
+     , ppHidden = xmobarColor xmobarInactiveWorkspaceColor ""
+     , ppTitle = xmobarColor xmobarTitleColor "" . shorten 100
+     , ppUrgent = xmobarColor xmobarUrgentWorkspaceColor ""
+     , ppSep = "   "
+     }) >>
+  updatePointer (0.5, 0.5) (0, 0)
 
 ------------------------------------------------------------------------
 -- Startup hook
-
 myStartupHook = return ()
 
 ------------------------------------------------------------------------
 -- Run xmonad
-
 main = do
   GIO.setFileSystemEncoding GIO.char8 -- workaround for xmonad #611
   host <- getHostName
   xmobarProc <- spawnPipe (XMobar.xmobar host)
   xmonad $
-    docks $ defaults
+    docks $
+    defaults
     { handleEventHook = fullscreenEventHook
     , keys = myKeys host
     , logHook = myLogHook xmobarProc
@@ -226,7 +245,6 @@ main = do
 
 ------------------------------------------------------------------------
 -- No need to modify this.
-
 defaults =
   def
     -- simple stuff

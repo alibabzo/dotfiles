@@ -25,6 +25,7 @@ in
   home.packages = with pkgs; [
     acpi
     bc
+    cargo
     chromium
     compton
     coreutils
@@ -60,6 +61,7 @@ in
     roboto
     rofi
     rustc
+    shellcheck
     shutter
     stack
     stow
@@ -102,7 +104,7 @@ in
     ".config/xmobar/scripts/battery.sh" = script ./cfgs/xmonad/scripts/battery.sh;
     ".config/xmonad/xmonad.hs".source = ./cfgs/xmonad/xmonad.hs;
     ".config/xmonad/lib/XMobar.hs".source = ./cfgs/xmonad/lib/XMobar.hs;
-    ".config/xmobar/xmobarrc".source = ./cfgs/xmonad/xmobar.hs;
+    ".config/xmobar/xmobarrc".source = ./cfgs/xmonad/xmobarrc;
     ".config/compton.conf".source = ./cfgs/compton/compton.conf;
     ".config/rofi/launcher".source = ./cfgs/rofi/launcher;
     ".config/termite/config-dark".source = ./cfgs/termite/config-dark;

@@ -1,4 +1,6 @@
-module XMobar (xmobar) where
+module XMobar
+  ( xmobar
+  ) where
 
 import Data.List
 import Text.Printf
@@ -16,7 +18,8 @@ xmobarFgColour :: String
 xmobarFgColour = "#e5e6e6"
 
 xmobarLook :: String
-xmobarLook = unwords
+xmobarLook =
+  unwords
     [ printf "--font='%s'" xmobarFont
     , printf "--bgcolor='%s'" xmobarBgColour
     , printf "--fgcolor='%s'" xmobarFgColour
@@ -33,30 +36,35 @@ xmobarCommands :: [String] -> String
 xmobarCommands c = printf "--commands='[%s]'" (intercalate ", " c)
 
 xmobarScript :: String -> [String] -> String -> Integer -> String
-xmobarScript c p = printf "Run Com \"%s\" %s \"%s\" %d" c (xmobarComParameters p)
+xmobarScript c p =
+  printf "Run Com \"%s\" %s \"%s\" %d" c (xmobarComParameters p)
 
 xmobarBattery :: String -> Integer -> String
-xmobarBattery = xmobarScript "sh" [ "-c", "~/.config/xmobar/scripts/battery.sh" ]
+xmobarBattery = xmobarScript "sh" ["-c", "~/.config/xmobar/scripts/battery.sh"]
 
 xmobarLoad :: String -> Integer -> String
-xmobarLoad = xmobarScript "sh" [ "-c", "~/.config/xmobar/scripts/load.sh" ]
+xmobarLoad = xmobarScript "sh" ["-c", "~/.config/xmobar/scripts/load.sh"]
 
 xmobarNetwork :: String -> String -> String -> Integer -> String
-xmobarNetwork lan wlan = xmobarScript "sh" [ "-c", "~/.config/xmobar/scripts/network.sh " ++ lan ++ " " ++ wlan ]
+xmobarNetwork lan wlan =
+  xmobarScript
+    "sh"
+    ["-c", "~/.config/xmobar/scripts/network.sh " ++ lan ++ " " ++ wlan]
 
 xmobarVolume :: String -> Integer -> String
-xmobarVolume = xmobarScript "sh" [ "-c", "~/.config/xmobar/scripts/volume.sh" ]
+xmobarVolume = xmobarScript "sh" ["-c", "~/.config/xmobar/scripts/volume.sh"]
 
 xmobarCoreTemp :: Integer -> String
-xmobarCoreTemp rr = concat
+xmobarCoreTemp rr =
+  concat
     [ "Run CoreTemp"
-    , xmobarComParameters [ "--template", "<fn=1>\xf06d</fn> <core0>°C" ]
+    , xmobarComParameters ["--template", "<fn=1>\xf06d</fn> <core0>°C"]
     , show rr
     ]
 
 xmobarDate :: Integer -> String
-xmobarDate rr = "Run Date \"<fn=1>\xf017</fn> %a %d %b %H:%M\" \"date\" "
-    ++ show rr
+xmobarDate rr =
+  "Run Date \"<fn=1>\xf017</fn> %a %d %b %H:%M\" \"date\" " ++ show rr
 
 xmobarSep :: String
 xmobarSep = "   "
@@ -65,18 +73,13 @@ templateParameter :: [String] -> String
 templateParameter template = printf " -t '%s'" (intercalate xmobarSep template)
 
 xmobarTemplate :: String -> String
-xmobarTemplate "a-desktop" = xmobarCommands
-    [ xmobarStdin
-    , xmobarLoad "load" 100
-    , xmobarCoreTemp 100
-    , xmobarDate 100
-    ] ++ templateParameter
-    [ "   %UnsafeStdinReader%}{"
-    , "%coretemp%"
-    , "%load%"
-    , "%date%   "
-    ]
-xmobarTemplate "a-laptop" = xmobarCommands
+xmobarTemplate "a-desktop" =
+  xmobarCommands
+    [xmobarStdin, xmobarLoad "load" 100, xmobarCoreTemp 100, xmobarDate 100] ++
+  templateParameter
+    ["   %UnsafeStdinReader%}{", "%coretemp%", "%load%", "%date%   "]
+xmobarTemplate "a-laptop" =
+  xmobarCommands
     [ xmobarStdin
     , xmobarLoad "load" 100
     , xmobarCoreTemp 100
@@ -84,7 +87,8 @@ xmobarTemplate "a-laptop" = xmobarCommands
     , xmobarVolume "volume" 30
     , xmobarBattery "battery" 600
     , xmobarDate 100
-    ] ++ templateParameter
+    ] ++
+  templateParameter
     [ "   %UnsafeStdinReader%}{"
     , "%coretemp%"
     , "%volume%"
