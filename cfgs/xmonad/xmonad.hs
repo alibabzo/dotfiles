@@ -31,6 +31,9 @@ import XMonad.Layout.Spacing (spacing)
 import XMonad.Layout.Spiral (spiral)
 import XMonad.Layout.ThreeColumns (ThreeCol(ThreeColMid))
 
+import XMonad.Prompt
+import XMonad.Prompt.Shell
+
 import qualified XMonad.StackSet as W
        (focusDown, focusMaster, focusUp, view, shift, sink, swapDown,
         swapMaster, swapUp)
@@ -85,6 +88,15 @@ xmobarBgColor = "#212121"
 
 xmobarFont = "xft:Roboto:size=10"
 
+myXPConfig = def
+  { position = Top
+  , font = "xft:Roboto:size=14"
+  , promptBorderWidth = 0
+  , height = 30
+  , historySize = 100
+  , historyFilter = deleteConsecutive
+  }
+
 ------------------------------------------------------------------------
 -- Workspaces
 myWorkspaces =
@@ -102,7 +114,7 @@ myWorkspaces =
 -- Window rules
 myManageHook =
   composeAll
-    [ className =? "chromium-browser" --> doShift (myWorkspaces !! 0)
+    [ className =? "Chromium-browser" --> doShift (myWorkspaces !! 0)
     , className =? "Emacs" --> doShift (myWorkspaces !! 2)
     , resource =? "desktop_window" --> doIgnore
     , isFullscreen --> (doF W.focusDown <+> doFullFloat)
@@ -137,7 +149,7 @@ myKeys hostname conf@XConfig {XMonad.modMask = modMask} =
   , ((modMask .|. shiftMask, xK_q), spawn (myLogout hostname))
   -- Spawn the launcher using command specified by myLauncher.
   -- Use this to launch programs without a key binding.
-  , ((modMask, xK_d), spawn myLauncher)
+  , ((modMask, xK_d), shellPrompt myXPConfig)
   -- Start a browser. Browser to start is specified by myBrowser variable.
   , ((modMask .|. shiftMask, xK_c), spawn myBrowser)
   -- Mute volume
