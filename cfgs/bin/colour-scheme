@@ -51,7 +51,7 @@ else
         dark)
             if [ -e "$COLOUR_FILE" ] && [ "$(cat "$COLOUR_FILE")" = "dark" ]; then exit 0; fi
             echo "dark" > "$COLOUR_FILE"
-            cp "$HOME/.config/termite/config-dark" "$HOME/.config/termite/config"
+            cp --no-preserve=mode "$HOME/.config/termite/config-dark" "$HOME/.config/termite/config"
             killall -USR1 termite
             nvim_all_command "set background=dark"
             xfconf-query -c xsettings -p /Net/ThemeName -s "Arc-Dark"
@@ -60,7 +60,7 @@ else
         light)
             if [ -e "$COLOUR_FILE" ] && [ "$(cat "$COLOUR_FILE")" = "light" ]; then exit 0; fi
             echo "light" > "$COLOUR_FILE"
-            cp "$HOME/.config/termite/config-light" "$HOME/.config/termite/config"
+            cp --no-preserve=mode "$HOME/.config/termite/config-light" "$HOME/.config/termite/config"
             killall -USR1 termite
             nvim_all_command "set background=light"
             xfconf-query -c xsettings -p /Net/ThemeName -s "Arc-Darker"
