@@ -27,7 +27,6 @@ in
     bc
     cargo
     chromium
-    compton
     coreutils
     emacs
     feh
@@ -61,8 +60,8 @@ in
     roboto
     rofi
     rustc
+    scrot
     shellcheck
-    shutter
     stack
     stow
     termite
@@ -94,22 +93,31 @@ in
   };
 
   home.file = {
+    # scripts
     "bin/colour-scheme" = script ./cfgs/bin/colour-scheme;
     "bin/colour-scheme-boot" = script ./cfgs/bin/colour-scheme-boot;
     "bin/init_keyboard" = script ./cfgs/bin/init_keyboard;
     "bin/shutdown_menu" = script ./cfgs/bin/shutdown_menu;
-    ".config/xmobar/scripts/network.sh" = script ./cfgs/xmonad/scripts/network.sh;
-    ".config/xmobar/scripts/load.sh" = script ./cfgs/xmonad/scripts/load.sh;
-    ".config/xmobar/scripts/volume.sh" = script ./cfgs/xmonad/scripts/volume.sh;
-    ".config/xmobar/scripts/battery.sh" = script ./cfgs/xmonad/scripts/battery.sh;
+
+    # xmobar
+    ".config/xmobar/scripts/network.sh" = script ./cfgs/xmobar/scripts/network.sh;
+    ".config/xmobar/scripts/load.sh" = script ./cfgs/xmobar/scripts/load.sh;
+    ".config/xmobar/scripts/volume.sh" = script ./cfgs/xmobar/scripts/volume.sh;
+    ".config/xmobar/scripts/battery.sh" = script ./cfgs/xmobar/scripts/battery.sh;
+    ".config/xmobar/xmobarrc".source = ./cfgs/xmobar/xmobarrc;
+
+    # xmonad
     ".config/xmonad/xmonad.hs".source = ./cfgs/xmonad/xmonad.hs;
     ".config/xmonad/lib/XMobar.hs".source = ./cfgs/xmonad/lib/XMobar.hs;
-    ".config/xmobar/xmobarrc".source = ./cfgs/xmonad/xmobarrc;
+
+    # misc
     ".config/compton.conf".source = ./cfgs/compton/compton.conf;
     ".config/rofi/launcher".source = ./cfgs/rofi/launcher;
     ".config/termite/config-dark".source = ./cfgs/termite/config-dark;
     ".config/termite/config-light".source = ./cfgs/termite/config-light;
     ".xkb/symbols/poker".source = ./cfgs/xkb/poker;
+
+    # fish
     ".config/fish/conf.d/aliases.fish".source = ./cfgs/fish/conf.d/aliases.fish;
     ".config/fish/conf.d/prompt.fish".source = ./cfgs/fish/conf.d/prompt.fish;
     ".config/fish/conf.d/vimode.fish".source = ./cfgs/fish/conf.d/vimode.fish;
