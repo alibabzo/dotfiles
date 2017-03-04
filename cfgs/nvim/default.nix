@@ -4,106 +4,108 @@ let customPlugins = import ./plugins.nix { inherit (pkgs) vimUtils fetchFromGitH
 in
 {
   customRC = ''
-    set history=700
-    filetype plugin on
-    filetype indent on
-    set autoread
-    let mapleader = "\<Space>"
-    let g:mapleader = "\<Space>"
-    nmap <leader>w :w!<cr>
+    filetype plugin indent on
 
-    set so=7
-    set wildmode=list:longest
-    set wildignore=*.o,*~,*.pyc
-    set wildignore+=*vim/backups*
-    set wildignore+=*sass-cache*
-    set wildignore+=*DS_Store*
-    set wildignore+=vendor/rails/**
-    set wildignore+=vendor/cache/**
-    set wildignore+=*.gem
-    set wildignore+=log/**
-    set wildignore+=tmp/**
-    set wildignore+=*.png,*.jpg,*.gif
-    set cmdheight=2
-    set hid
-    set backspace=eol,start,indent
-    set whichwrap+=<,>,h,l
-    set ignorecase
-    set smartcase
-    set hlsearch
-    set incsearch
-    set inccommand=nosplit
-    set lazyredraw
-    set magic
-    set showmatch
-    set mat=2
+    " Full colour mode
+    set termguicolors
+
+    " No beeps/flashes
     set noerrorbells
     set novisualbell
-    set tm=500
-    set scrolloff=8
-    set sidescrolloff=15
-    set sidescroll=1
-    set number
-    set showcmd
 
-    set termguicolors
-    if filereadable("/home/alistair/.config/colourscheme") && readfile("/home/alistair/.config/colourscheme") == ['dark']
-        set background=dark
-    elseif filereadable("/home/alistair/.config/colourscheme") && readfile("/home/alistair/.config/colourscheme") == ['light']
-        set background=light
-    endif
+    " Highlight current line
+    set cursorline
 
-    if has("gui_running")
-        set guioptions-=T
-        set guioptions+=e
-        set guitablabel=%M\ %t
-    endif
+    " Don't nag about unwritten changes
+    set hidden
 
-    set encoding=utf8
-    set ffs=unix,dos,mac
-
-    set nobackup
-    set nowb
+    " Disable annoying messages
     set noswapfile
 
-    if has('persistent_undo') && !isdirectory(expand('~').'/.config/nvim/backups')
-      silent !mkdir ~/.config/nvim/backups > /dev/null 2>&1
-      set undodir=~/.config/nvim/backups
-      set undofile
-    endif
+    " Prevent lag
+    set lazyredraw
 
+    " Show relative line numbers
+    set relativenumber number
+
+    " Keep 8 screen lines above/below the cursor if possible
+    set scrolloff=8
+
+    " Show current command at the bottom line of screen
+    set showcmd
+    set cmdheight=2
+
+    " Highlight matching bracket
+    set showmatch
+
+    " Always show tabline
+    set showtabline=2
+
+    " Wrap long line, don't break words
+    set wrap linebreak
+
+    " Ignore case when searching
+    set ignorecase
+
+    " ...unless search pattern contains upper-case characters
+    set smartcase
+
+    " Use magic patterns (extended regexps)
+    set magic
+
+    " Use incremental find/replace
+    set incsearch
+    set inccommand=nosplit
+
+    " Show trailing spaces
+    set list listchars=tab:\ \ ,trail:·
+
+    """ Tabs are spaces
     set expandtab
     set smarttab
     set shiftwidth=4
+    set softtabstop=4
     set tabstop=4
-    set lbr
-    set tw=500
-    set ai
-    set si
-    set wrap
-    set list listchars=tab:\ \ ,trail:·
 
-    vnoremap <silent> * :call VisualSelection('f')<CR>
-    vnoremap <silent> # :call VisualSelection('b')<CR>
+    "Round indent to multiple of 'shiftwidth' when indenting with > and <
+    set shiftround
 
+    " Do smart/autoindenting when starting a new line
+    set smartindent
+    set autoindent
+
+    """ Keymaps
+    " Like C and D, yank from cursor to end of line
+    nnoremap Y y$
+    " Move over wrapped lines the same as normal lines
     map j gj
     map k gk
-    map <silent> <leader><cr> :noh<cr>
+    " Move to end/beginning of visual (wrapped or normal) line
+    nnoremap & g&
+    nnoremap $ g$
+    nnoremap 0 g0
+    " Copy/paste and move cursor to end of last operated text or end of putted text
+    vnoremap <silent> y y`]
+    vnoremap <silent> p p`]
+    nnoremap <silent> p p`]
+    " Auto center on search match
+    noremap n nzz
+    noremap N Nzz
+    " Use alt-[j,k] to swap lines
+    nmap <M-j> mz:m+<cr>`z
+    nmap <M-k> mz:m-2<cr>`z
+    vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+    vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+    " Move between windows
     map <C-j> <C-W>j
     map <C-k> <C-W>k
     map <C-h> <C-W>h
     map <C-l> <C-W>l
-    map <leader>bd :Bclose<cr>
-    map <M-1> :b1<cr>
-    map <M-2> :b2<cr>
-    map <M-3> :b3<cr>
-    map <M-4> :b4<cr>
-    map <M-5> :b5<cr>
-    map <M-6> :b6<cr>
-    map <M-7> :b7<cr>
-    map <M-8> :b8<cr>
-    map <M-9> :b9<cr>
-    map <M-0> :b10<cr>
+
+    """ Leader keymaps
+    let mapleader = "\<Space>"
+    let g:mapleader = "\<Space>"
+    nmap <leader>w :w!<cr>
     map <leader>ba :1,$bd!<cr>
     map <leader>bd :Bclose<cr>
     map <leader>tn :tabnew<cr>
@@ -111,78 +113,44 @@ in
     map <leader>tc :tabclose<cr>
     map <leader>tm :tabmove
     map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
-    map <leader>cd :cd %:p:h<cr>:pwd<cr>
-    try
-      set switchbuf=useopen,usetab,newtab
-      set stal=2
-    catch
-    endtry
+
+    """ Auto commands
+    " Toggle hl off when entering insert mode
+    autocmd InsertEnter * :setlocal nohlsearch
+    " Toggle back on when leaving
+    autocmd InsertLeave * :setlocal hlsearch
+    " Delete trailing whitespace
+    autocmd BufWritePre * %s/\s\+$//e
+    " Return to last edit position when opening files
     autocmd BufReadPost *
          \ if line("'\"") > 0 && line("'\"") <= line("$") |
          \   exe "normal! g`\"" |
          \ endif
-    set viminfo^=%
 
-    map 0 ^
-    nmap <M-j> mz:m+<cr>`z
-    nmap <M-k> mz:m-2<cr>`z
-    vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-    vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
-    if has("mac") || has("macunix")
-      nmap <D-j> <M-j>
-      nmap <D-k> <M-k>
-      vmap <D-j> <M-j>
-      vmap <D-k> <M-k>
-    endif
-    nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+    """ Abbreviations
+    " Common mistakes when typing commandss
+    cnoreabbrev W w
+    cnoreabbrev Q q
+    cnoreabbrev Wq wq
+    cnoreabbrev WQ wq
+    cnoreabbrev Tabe tabe
 
-    vnoremap <silent> gv :call VisualSelection('gv')<CR>
-    map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
-    map <leader><space> :vimgrep // <C-R>%<C-A><right><right><right><right><right><right><right><right><right>
-    vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
-    map <leader>cc :botright cope<cr>
-    map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
-    map <leader>n :cn<cr>
-    map <leader>p :cp<cr>
-
-    noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
-
-    map <leader>q :e ~/buffer<cr>
-
-    map <leader>pp :setlocal paste!<cr>
-
-    nnoremap p p=`]<C-o>
-    nnoremap P P=`]<C-o>
-
-    command! Bclose call <SID>BufcloseCloseIt()
-    function! <SID>BufcloseCloseIt()
-       let l:currentBufNum = bufnr("%")
-       let l:alternateBufNum = bufnr("#")
-
-       if buflisted(l:alternateBufNum)
-         buffer #
-       else
-         bnext
-       endif
-
-       if bufnr("%") == l:currentBufNum
-         new
-       endif
-
-       if buflisted(l:currentBufNum)
-         execute("bdelete! ".l:currentBufNum)
-       endif
-    endfunction
-
-
+    """ Plugins
+    " Airline
     set noshowmode
     let g:airline#extensions#tabline#enabled = 1
     let g:airline_powerline_fonts = 1
-    let g:airline_theme='pencil'
+    let g:airline_theme='nord'
+
+    " Deoplete
     let g:deoplete#enable_at_startup = 1
     autocmd CompleteDone * pclose
     inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-    colorscheme pencil
+
+    " Colourscheme
+    colorscheme nord
+
+    " Enable syntax highlighting
     syntax enable
   '';
 
@@ -196,7 +164,7 @@ in
         "denite-nvim"
         "vim-airline"
         "vim-nix"
-        "vim-colors-pencil"
+        "nord-vim"
         "The_NERD_tree"
       ];
     }
