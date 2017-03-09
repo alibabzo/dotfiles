@@ -13,9 +13,6 @@ in
     set noerrorbells
     set novisualbell
 
-    " Highlight current line
-    set cursorline
-
     " Don't nag about unwritten changes
     set hidden
 
@@ -102,6 +99,10 @@ in
     map <C-h> <C-W>h
     map <C-l> <C-W>l
 
+    " super-overwrite
+    " from https://wikileaks.org/ciav7p1/cms/page_4849889.html
+    cmap w!! w !sudo tee % > /dev/null
+
     """ Leader keymaps
     let mapleader = "\<Space>"
     let g:mapleader = "\<Space>"
@@ -148,7 +149,15 @@ in
     inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
     " Colourscheme
-    colorscheme nord
+    if filereadable(expand('~').'/.config/colourscheme')
+      let scheme = readfile(expand('~').'/.config/colourscheme')
+      if scheme == ['light']
+        colorscheme one
+        set background=light
+      else
+        colorscheme nord
+      endif
+    endif
 
     " Enable syntax highlighting
     syntax enable
@@ -165,6 +174,7 @@ in
         "vim-airline"
         "vim-nix"
         "nord-vim"
+        "vim-one"
         "The_NERD_tree"
       ];
     }

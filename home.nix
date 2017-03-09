@@ -43,11 +43,10 @@ in
     jsoncpp
     lxappearance
     mono
-    msgpack-tools
     ncmpcpp
     neofetch
     neovim
-    netcat-openbsd
+    neovim-remote
     nitrogen
     nox
     openssl
@@ -65,6 +64,7 @@ in
     stack
     stow
     termite
+    unzip
     vlc
     weechat
     wirelesstools
@@ -95,7 +95,6 @@ in
   home.file = {
     # scripts
     "bin/colour-scheme" = script ./cfgs/bin/colour-scheme;
-    "bin/colour-scheme-boot" = script ./cfgs/bin/colour-scheme-boot;
     "bin/init_keyboard" = script ./cfgs/bin/init_keyboard;
     "bin/shutdown_menu" = script ./cfgs/bin/shutdown_menu;
 
@@ -123,6 +122,7 @@ in
     ".config/fish/conf.d/vimode.fish".source = ./cfgs/fish/conf.d/vimode.fish;
     ".config/fish/functions/cd.fish".source = ./cfgs/fish/functions/cd.fish;
     ".config/fish/functions/extract.fish".source = ./cfgs/fish/functions/extract.fish;
+    ".config/fish/functions/v.fish".source = ./cfgs/fish/functions/v.fish;
     ".config/fish/functions/fisher.fish".source = "${fisherman}/fisher.fish";
     ".config/fish/fishfile".source = ./cfgs/fish/fishfile;
   };

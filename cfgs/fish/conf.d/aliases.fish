@@ -1,4 +1,3 @@
-alias v='nvim'
 alias mkexec='chmod +x'
 alias lg='ls | grep'
 alias setclip='xclip -selection c'
