@@ -22,7 +22,8 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops (fullscreenEventHook)
 import XMonad.Hooks.FadeInactive (fadeInactiveLogHook)
 import XMonad.Hooks.ManageDocks (avoidStruts, docks)
-import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat)
+import XMonad.Hooks.ManageHelpers
+       (doCenterFloat, doFullFloat, isDialog, isFullscreen)
 
 import XMonad.Layout.Gaps (gaps, Direction2D(U, D, L, R))
 import XMonad.Layout.NoBorders (noBorders)
@@ -32,7 +33,9 @@ import XMonad.Layout.Spiral (spiral)
 import XMonad.Layout.ThreeColumns (ThreeCol(ThreeColMid))
 
 import XMonad.Prompt
-import XMonad.Prompt.Shell
+       (deleteConsecutive, Direction1D(Next), XPPosition(..),
+        XPConfig(..))
+import XMonad.Prompt.Shell (shellPrompt)
 
 import qualified XMonad.StackSet as W
        (focusDown, focusMaster, focusUp, view, shift, sink, swapDown,
@@ -88,7 +91,8 @@ xmobarBgColor = "#212121"
 
 xmobarFont = "xft:Roboto:size=10"
 
-myXPConfig = def
+myXPConfig =
+  def
   { position = Top
   , font = "xft:Roboto:size=14"
   , promptBorderWidth = 0
@@ -117,6 +121,7 @@ myManageHook =
     [ className =? "Chromium-browser" --> doShift (myWorkspaces !! 0)
     , className =? "Emacs" --> doShift (myWorkspaces !! 2)
     , resource =? "desktop_window" --> doIgnore
+    , isDialog --> doCenterFloat
     , isFullscreen --> (doF W.focusDown <+> doFullFloat)
     ]
 
