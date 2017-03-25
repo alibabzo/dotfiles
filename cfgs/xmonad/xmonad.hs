@@ -1,6 +1,5 @@
 ------------------------------------------------------------------------
 -- Imports
-import qualified Data.List as List (concat, intercalate)
 import qualified Data.Map as M (fromList, Map)
 
 import GHC.IO.Encoding as GIO (setFileSystemEncoding, char8)
@@ -9,18 +8,19 @@ import Graphics.X11.ExtraTypes.XF86
         xF86XK_AudioRaiseVolume)
 import Network.HostName (getHostName)
 import System.IO (hPutStrLn)
-import Text.Printf (printf)
 
 import XMonad
 
-import XMonad.Actions.PhysicalScreens (viewScreen, sendToScreen)
+import XMonad.Actions.PhysicalScreens
+       (getScreen, sendToScreen, viewScreen)
 import XMonad.Actions.UpdatePointer (updatePointer)
 
 import XMonad.Hooks.DynamicLog
-       (dynamicLogWithPP, pad, ppCurrent, ppVisible, ppUrgent, ppHidden,
-        ppLayout, ppOutput, ppSep, ppTitle, ppWsSep, shorten, xmobarColor)
+       (dynamicLogWithPP, ppCurrent, ppVisible, ppUrgent, ppHidden,
+        ppOutput, ppSep, ppTitle, shorten, xmobarColor)
 import XMonad.Hooks.EwmhDesktops (fullscreenEventHook)
-import XMonad.Hooks.FadeInactive (fadeInactiveLogHook)
+
+-- import XMonad.Hooks.FadeInactive (fadeInactiveLogHook)
 import XMonad.Hooks.ManageDocks (avoidStruts, docks)
 import XMonad.Hooks.ManageHelpers
        (doCenterFloat, doFullFloat, isDialog, isFullscreen)
@@ -28,6 +28,7 @@ import XMonad.Hooks.ManageHelpers
 import XMonad.Layout.Gaps (gaps, Direction2D(U, D, L, R))
 import XMonad.Layout.NoBorders (noBorders)
 import XMonad.Layout.PerScreen (ifWider)
+import XMonad.Layout.Renamed (renamed, Rename(CutWordsLeft))
 import XMonad.Layout.Spacing (spacing)
 import XMonad.Layout.Spiral (spiral)
 import XMonad.Layout.ThreeColumns (ThreeCol(ThreeColMid))
@@ -38,8 +39,8 @@ import XMonad.Prompt
 import XMonad.Prompt.Shell (shellPrompt)
 
 import qualified XMonad.StackSet as W
-       (focusDown, focusMaster, focusUp, view, shift, sink, swapDown,
-        swapMaster, swapUp)
+       (focusDown, focusMaster, focusUp, greedyView, view, shift, sink,
+        swapDown, swapMaster, swapUp)
 
 import XMonad.Util.Run (spawnPipe)
 
@@ -127,7 +128,8 @@ myManageHook =
 
 ------------------------------------------------------------------------
 -- Layouts
-myLayout = avoidStruts $ ifWider 1080 widelayouts talllayouts
+myLayout =
+  renamed [CutWordsLeft 2] $ avoidStruts $ ifWider 1080 widelayouts talllayouts
   where
     widelayouts =
       gaps gs $
@@ -228,8 +230,9 @@ myMouseBindings XConfig {XMonad.modMask = modMask} =
 
 ------------------------------------------------------------------------
 -- Status bars and logging
-myLogHook h =
-  fadeInactiveLogHook 0.8 >>
+myLogHook h
+  -- fadeInactiveLogHook 0.8 >>
+ =
   dynamicLogWithPP
     (def
      { ppOutput = hPutStrLn h
@@ -244,7 +247,12 @@ myLogHook h =
 
 ------------------------------------------------------------------------
 -- Startup hook
-myStartupHook = return ()
+myStartupHook = do
+  Just s0 <- getScreen 0
+  Just s1 <- getScreen 1
+  screenWorkspace s1 >>= flip whenJust (windows . W.view)
+  windows $ W.greedyView (myWorkspaces !! 1)
+  screenWorkspace s0 >>= flip whenJust (windows . W.view)
 
 ------------------------------------------------------------------------
 -- Run xmonad
