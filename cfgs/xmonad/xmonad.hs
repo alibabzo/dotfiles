@@ -18,14 +18,15 @@ import XMonad.Actions.UpdatePointer (updatePointer)
 import XMonad.Hooks.DynamicLog
        (dynamicLogWithPP, ppCurrent, ppVisible, ppUrgent, ppHidden,
         ppOutput, ppSep, ppTitle, shorten, xmobarColor)
-import XMonad.Hooks.EwmhDesktops (fullscreenEventHook)
+import XMonad.Hooks.EwmhDesktops (ewmh)
 
 -- import XMonad.Hooks.FadeInactive (fadeInactiveLogHook)
 import XMonad.Hooks.ManageDocks (avoidStruts, docks)
 import XMonad.Hooks.ManageHelpers
-       (doCenterFloat, doFullFloat, isDialog, isFullscreen)
+       (doCenterFloat, isDialog)
 
 import XMonad.Layout.Gaps (gaps, Direction2D(U, D, L, R))
+import XMonad.Layout.Fullscreen (fullscreenSupport)
 import XMonad.Layout.NoBorders (noBorders)
 import XMonad.Layout.PerScreen (ifWider)
 import XMonad.Layout.Renamed (renamed, Rename(CutWordsLeft))
@@ -123,13 +124,12 @@ myManageHook =
     , className =? "Emacs" --> doShift (myWorkspaces !! 2)
     , resource =? "desktop_window" --> doIgnore
     , isDialog --> doCenterFloat
-    , isFullscreen --> (doF W.focusDown <+> doFullFloat)
     ]
 
 ------------------------------------------------------------------------
 -- Layouts
-myLayout =
-  renamed [CutWordsLeft 2] $ avoidStruts $ ifWider 1080 widelayouts talllayouts
+myLayout = avoidStruts $
+  renamed [CutWordsLeft 2] $ ifWider 1080 widelayouts talllayouts
   where
     widelayouts =
       gaps gs $
@@ -262,9 +262,10 @@ main = do
   xmobarProc <- spawnPipe (XMobar.xmobar host)
   xmonad $
     docks $
+    fullscreenSupport $
+    ewmh
     defaults
-    { handleEventHook = fullscreenEventHook
-    , keys = myKeys host
+    { keys = myKeys host
     , logHook = myLogHook xmobarProc
     }
 
