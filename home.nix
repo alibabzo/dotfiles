@@ -9,10 +9,10 @@ let
   fisherman = pkgs.stdenv.mkDerivation {
     name = "fisherman";
     src = fetchFromGitHub {
-      rev = "99702cf7392b4b4544ed5b3d6a6298f9d3bdb2fc";
+      rev = "91f447ec4087635ea988e6864288cb73a0aba504";
       repo = "fisherman";
       owner = "fisherman";
-      sha256 = "00a1vp7w2kjargg7ijjm7syrbxn716dp7qyn2635d62fqmbdd41c";
+      sha256 = "1qjxkz2rvd5d6zfh2xw21niy7xh4hhbdh89szdiwydyywrsq025h";
     };
     installPhase = ''
       mkdir $out
@@ -25,7 +25,6 @@ in
   home.packages = with pkgs; [
     acpi
     bc
-    cargo
     chromium
     coreutils
     emacs
@@ -37,34 +36,31 @@ in
     hexchat
     haskellPackages.hindent
     haskellPackages.hlint
+    haskellPackages.stack-run
     htop
     imagemagick
     jq
-    jsoncpp
+    libnotify
     lxappearance
     mono
+    msgpack-tools
     ncmpcpp
     neofetch
     neovim
-    neovim-remote
+    netcat-openbsd
     nitrogen
     nox
-    openssl
     pavucontrol
-    perl
     psmisc
-    python
-    python3
     ripgrep
     roboto
     rofi
-    rustc
     scrot
     shellcheck
     stack
-    stow
     termite
     unzip
+    vim-vint
     vlc
     weechat
     wirelesstools
@@ -76,20 +72,13 @@ in
     xorg.xkbcomp
     xorg.xmessage
     xorg.xset
+    zip
   ];
 
   programs.git = {
     enable = true;
     userName = "Alistair Bill";
     userEmail = "alistair.bill@gmail.com";
-  };
-
-  services.redshift = {
-    enable = true;
-    latitude = "51.5";
-    longitude = "-2.6";
-    temperature.day = 5700;
-    temperature.night = 3500;
   };
 
   home.file = {
@@ -122,7 +111,6 @@ in
     ".config/fish/conf.d/vimode.fish".source = ./cfgs/fish/conf.d/vimode.fish;
     ".config/fish/functions/cd.fish".source = ./cfgs/fish/functions/cd.fish;
     ".config/fish/functions/extract.fish".source = ./cfgs/fish/functions/extract.fish;
-    ".config/fish/functions/v.fish".source = ./cfgs/fish/functions/v.fish;
     ".config/fish/functions/fisher.fish".source = "${fisherman}/fisher.fish";
     ".config/fish/fishfile".source = ./cfgs/fish/fishfile;
   };

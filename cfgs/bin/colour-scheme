@@ -12,8 +12,8 @@ light () {
     echo "light" > "$COLOUR_FILE"
     cp --no-preserve=mode "$HOME/.config/termite/config-light" "$HOME/.config/termite/config"
     killall -USR1 termite
-    nvim_all_command "<Esc>:colorscheme one<CR>"
-    nvim_all_command "<Esc>:set background=light<CR>"
+    nvim_all_command "colorscheme one"
+    nvim_all_command "set background=light"
     xfconf-query -c xsettings -p /Net/ThemeName -s "Arc-Darker"
     wallpaper_light
 }
@@ -23,8 +23,8 @@ dark () {
     echo "dark" > "$COLOUR_FILE"
     cp --no-preserve=mode "$HOME/.config/termite/config-dark" "$HOME/.config/termite/config"
     killall -USR1 termite
-    nvim_all_command "<Esc>:colorscheme nord<CR>"
-    nvim_all_command "<Esc>:set background=dark<CR>"
+    nvim_all_command "colorscheme nord"
+    nvim_all_command "set background=dark"
     xfconf-query -c xsettings -p /Net/ThemeName -s "Arc-Dark"
     wallpaper_dark
 }
@@ -54,8 +54,8 @@ determine_colourscheme() {
 }
 
 nvim_all_command() {
-    for nvim_inst in /tmp/nvimsocket-*; do
-        nvr --servername "$nvim_inst" --remote-send "$1" 2> /dev/null
+    for nvim in /tmp/nvim*/0; do
+        echo "[0,0,\"vim_command\",[\"$1\"]]" | json2msgpack | nc -U "$nvim"
     done
 }
 
