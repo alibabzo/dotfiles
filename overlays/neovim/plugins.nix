@@ -7,8 +7,8 @@ in
     src = fetchFromGitHub {
       owner = "w0rp";
       repo = "ale";
-      rev = "822b19ac8376677d73c4df5ce80ed708a1cabd8b";
-      sha256 = "01942mjn1p7hyn1y2jlmrzqfwzdmnkcvqjw654iwjirnawiz5cj2";
+      rev = "3a74d242f9b2b09dd066e5cfd6ed9a0149395b87";
+      sha256 = "1cqlni9x3ghn73kkm4v5fnzi4ics9bjkfa7j4jc333qsyrkh1039";
     };
     dependencies = [];
   };
