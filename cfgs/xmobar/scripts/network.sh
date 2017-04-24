@@ -1,4 +1,5 @@
-#!/usr/bin/env sh
+#!/usr/bin/env nix-shell
+#! nix-shell -i sh -p wirelesstools bc
 ETHERNET_INTERFACE=$1
 WIRELESS_INTERFACE=$2
 WIRELESS_ICON="<fn=1></fn>"
