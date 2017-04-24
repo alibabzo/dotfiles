@@ -11,9 +11,7 @@ if [ "$eth" = '' ] && [ "$wifi" = '' ]; then
     output="$NOT_CONNECTED_ICON disconnected"
 else
     if [ "$wifi" != '' ]; then
-        quality=$(iwconfig "$WIRELESS_INTERFACE" | grep Quality \
-            | cut -d = -f 2 | cut -d ' ' -f 1 | bc -l \
-            | head -c 3 | tail -c 2)
+        quality="$(printf %0.f $(echo "$(iwconfig "$WIRELESS_INTERFACE" | grep Quality | cut -d = -f 2 | cut -d ' ' -f 1) * 100" | bc -l))"
         output="$WIRELESS_ICON $wifi $quality%"
     fi
     if [ "$eth" != '' ]; then

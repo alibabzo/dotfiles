@@ -19,6 +19,7 @@ import XMonad.Hooks.DynamicLog
        (dynamicLogWithPP, ppCurrent, ppVisible, ppUrgent, ppHidden,
         ppOutput, ppSep, ppTitle, shorten, xmobarColor)
 import XMonad.Hooks.EwmhDesktops (ewmh)
+import XMonad.Hooks.SetWMName (setWMName)
 
 -- import XMonad.Hooks.FadeInactive (fadeInactiveLogHook)
 import XMonad.Hooks.ManageDocks (avoidStruts, docks)
@@ -230,9 +231,7 @@ myMouseBindings XConfig {XMonad.modMask = modMask} =
 
 ------------------------------------------------------------------------
 -- Status bars and logging
-myLogHook h
-  -- fadeInactiveLogHook 0.8 >>
- =
+myLogHook h =
   dynamicLogWithPP
     (def
      { ppOutput = hPutStrLn h
@@ -243,7 +242,8 @@ myLogHook h
      , ppUrgent = xmobarColor xmobarUrgentWorkspaceColor ""
      , ppSep = "   "
      }) >>
-  updatePointer (0.5, 0.5) (0, 0)
+  updatePointer (0.5, 0.5) (0, 0) >>
+  setWMName "LG3D"
 
 ------------------------------------------------------------------------
 -- Startup hook
