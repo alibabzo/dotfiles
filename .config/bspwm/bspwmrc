@@ -1,0 +1,40 @@
+#! /bin/sh
+WALLPAPERS=~/Pictures/Wallpapers/Unsplash
+
+sxhkd &
+
+for monitor in $(bspc query -M); do
+    bspc monitor $monitor -d 00 01 10 11
+done
+
+bspc config border_width         0
+bspc config window_gap          15
+
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+
+bspc config focus_follows_pointer true
+bspc config pointer_follows_focus true
+bspc config pointer_follows_monitor true
+
+bspc rule -a Emacs state=tiled
+
+# don't change the order of the stuff below!
+# I think feh has to come last for some reason?
+
+compton &
+
+polybar right &
+polybar left &
+
+setxkbmap -I $HOME/.config/xkb poker -print | xkbcomp -I$HOME/.config/xkb - :0 > /dev/null 2>&1
+
+redshift &
+
+xsetroot -cursor_name left_ptr
+
+wp_r=$(find "$WALLPAPERS" -name 'right*' -type f | shuf | head -n 1)
+wp_l=$(find "$WALLPAPERS" -name 'left*' -type f | shuf | head -n 1)
+feh --bg-fill $wp_r --bg-fill $wp_l &
+

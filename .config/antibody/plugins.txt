@@ -1,0 +1,6 @@
+zsh-users/zsh-completions
+zsh-users/zsh-autosuggestions
+
+akz92/clean
+zdharma/fast-syntax-highlighting
+zsh-users/zsh-history-substring-search
