@@ -1,4 +1,0 @@
-#!/usr/bin/env nix-shell
-#! nix-shell -i sh -p xorg.xkbcomp xorg.xinput
-setxkbmap -I "$HOME/.config/xkb" poker -print | xkbcomp -I"$HOME/.config/xkb" - "$DISPLAY"
-xinput --set-prop 13 'libinput Accel Speed' -0.5
