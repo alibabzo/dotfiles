@@ -36,5 +36,5 @@ xsetroot -cursor_name left_ptr
 
 wp_r=$(find "$WALLPAPERS" -name 'right*' -type f | shuf | head -n 1)
 wp_l=$(find "$WALLPAPERS" -name 'left*' -type f | shuf | head -n 1)
-feh --bg-fill $wp_r --bg-fill $wp_l &
+feh --bg-fill $wp_r --bg-fill $wp_l
 
