@@ -1,8 +1,24 @@
 [appearance]
-background = #5a000000
-foreground = #eee
-font-0 = Roboto:size=9:weight=medium;0
-font-1 = FontAwesome:size=9;0
+background = #8f2e3440
+foreground = ${xrdb:foreground}
+color0 = ${xrdb:color0}
+color1 = ${xrdb:color1}
+color2 = ${xrdb:color2}
+color3 = ${xrdb:color3}
+color4 = ${xrdb:color4}
+color5 = ${xrdb:color5}
+color6 = ${xrdb:color6}
+color7 = ${xrdb:color7}
+color8 = ${xrdb:color8}
+color9 = ${xrdb:color9}
+color10 = ${xrdb:color10}
+color11 = ${xrdb:color11}
+color12 = ${xrdb:color12}
+color13 = ${xrdb:color13}
+color14 = ${xrdb:color14}
+color15 = ${xrdb:color15}
+font-roboto = Roboto:style=Regular:antialias=true:antialias=true:pixelsize=10;0
+font-icon = FontAwesome:size=10;0
 
 [bar/right]
 monitor = HDMI-1
@@ -11,26 +27,28 @@ height = 27
 offset-x = 0
 offset-y = 0
 bottom = true
+line-size = 1
 
 background = ${appearance.background}
 foreground = ${appearance.foreground}
-underline-size = 2
-underline-color = ${appearance.foreground}
-spacing = 1
-padding-left = 1
-padding-right = 1
-module-margin-left = 1
-module-margin-right = 1
 
-font-0 = ${appearance.font-0}
-font-1 = ${appearance.font-1}
+; underline-size = 2
+; underline-color = ${appearance.foreground}
+; spacing = 1
+
+padding-left = 4
+padding-right = 4
+module-margin-left = 2
+module-margin-right = 2
+
+font-0 = ${appearance.font-roboto}
+font-1 = ${appearance.font-icon}
 
 modules-left = bspwm xwindow
-; modules-center =
-modules-right = loadavg date powermenu
+modules-right = archpkg loadavg date powermenu
 
-scroll-up = bspwm-desknext
-scroll-down = bspwm-deskprev
+; scroll-up = bspwm-desknext
+; scroll-down = bspwm-deskprev
 
 wm-restack = bspwm
 ; override-redirect = true
@@ -42,84 +60,89 @@ height = 27
 offset-x = 0
 offset-y = 0
 bottom = true
+line-size = 1
 
 background = ${appearance.background}
 foreground = ${appearance.foreground}
-underline-size = 2
-underline-color = ${appearance.foreground}
-spacing = 1
-padding-left = 1
-padding-right = 1
-module-margin-left = 0
-module-margin-right = 0
 
-font-0 = ${appearance.font-0}
-font-1 = ${appearance.font-1}
+; underline-size = 2
+; underline-color = ${appearance.foreground}
+; spacing = 1
+
+padding-left = 4
+padding-right = 4
+module-margin-left = 2
+module-margin-right = 2
+
+font-0 = ${appearance.font-roboto}
+font-1 = ${appearance.font-icon}
 
 ; modules-left =
 ; modules-center =
 modules-right = bspwm
 
-scroll-up = bspwm-desknext
-scroll-down = bspwm-deskprev
+; scroll-up = bspwm-desknext
+; scroll-down = bspwm-deskprev
 
 wm-restack = bspwm
 ; override-redirect = true
 
-;
-; modules
-;
-
 [module/bspwm]
 type = internal/bspwm
 
-format = <label-state>
+format = <label-state> <label-mode>
 
 label-focused = %name%
 label-focused-background = ${appearance.background}
-label-focused-underline= #ddd
+label-focused-foreground = ${appearance.foreground}
+label-focused-overline = ${appearance.color7}
 label-focused-padding = 1
 
 label-occupied = %name%
+label-occupied-background = ${appearance.background}
+label-occupied-foreground = ${appearance.foreground}
 label-occupied-padding = 1
 
 label-urgent = %name%
+label-urgent-background = ${appearance.color11}
+label-urgent-foreground = ${appearance.background}
 label-urgent-padding = 1
 
 label-empty = %name%
-label-empty-foreground = #88ffffff
+label-empty-foreground = #88d8dee9
 label-empty-padding = 1
 
 [module/xwindow]
 type = internal/xwindow
-label = %title:0:40:...%
+label = %title:0:60:...%
 label-padding = 1
 
 [module/date]
 type = internal/date
-interval = 1.0
+interval = 1
 date = %a %d %b
 time = %H:%M
 date-alt = %A, %d %B %Y
 time-alt = %H:%M:%S
 
 label = %date% %time%
-format =   <label>
-format-background = ${appearance.background}
-format-padding = 1
+format-prefix = 
+format-prefix-font = 1
+format-prefix-padding-right = 2
 
 [module/loadavg]
 type = custom/script
 interval = 10
 exec = cat /proc/loadavg | awk '{print $1}'
-format-prefix = " "
-format-padding = 1
+format-prefix = 
+format-prefix-font = 1
+format-prefix-padding-right = 1
 
 [module/coretemp]
 type = custom/script
 interval = 20
 exec-if = sensors
-exec = sensors | grep Core | awk '{print substr($3, 2, length($3)-5)}' | tr '\n' ' ' | sed 's/ /°C  /g' | sed 's/  $//'
+exec = sensors | grep Core | awk '{print substr($3, 2, length($3))}' | tr '\n' ' '
 
 [module/powermenu]
 type = custom/menu
@@ -143,3 +166,13 @@ menu-1-0-padding = 1
 menu-2-0 = power off?
 menu-2-0-exec = systemctl poweroff
 menu-2-0-padding = 1
+
+[module/archpkg]
+type = custom/script
+format-prefix = 
+format-prefix-font = 1
+format-prefix-padding-right = 1
+exec = ~/.config/polybar/scripts/archpkg.sh
+interval = 600
+
+
