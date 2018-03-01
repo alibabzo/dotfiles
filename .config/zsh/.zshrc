@@ -16,9 +16,9 @@ bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
 alias ls='ls --color=auto'
+alias ll='ls -al'
 
 alias e=$EDITOR
-# alias nvim=$EDITOR
 alias ec='emacsclient -nc'
 
 alias pacu='trizen -Syu'
@@ -30,6 +30,8 @@ alias setclip='xclip -selection c'
 alias getclip='xclip -selection clipboard -o'
 
 alias mkexec='chmod +x'
+
+alias ssh="TERM=xterm-256color ssh"
 
 function chpwd() {
 	ls
