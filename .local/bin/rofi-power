@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# rofi-power
+# Use rofi to call systemctl for shutdown, reboot, etc
+
+# 2016 Oliver Kraitschy - http://okraits.de
+
+OPTIONS="Logout\\nReboot\\nPower off"
+LAUNCHER="rofi -dmenu -i -p power:"
+option=$(echo $OPTIONS | $LAUNCHER | awk '{print $1}' | tr -d '\r\n')
+if [ ${#option} -gt 0 ]; then
+    case $option in
+        Logout)
+            pkill -x panel; bspc quit
+            ;;
+        Reboot)
+            dbus-send --system --print-reply --des"org.freedesktop.ConsoleKit" /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Restart
+            ;;
+        Power)
+            dbus-send --system --print-reply --des"org.freedesktop.ConsoleKit" /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Stop
+            ;;
+        *)
+            ;;
+        esac
+fi

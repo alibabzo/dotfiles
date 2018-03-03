@@ -1,0 +1,23 @@
+shadow = true;
+no-dock-shadow = true;
+no-dnd-shadow = true;
+clear-shadow = true;
+shadow-radius = 10;
+shadow-opacity = 0.8;
+menu-opacity = 1;
+
+fading = true;
+fade-delta = 4;
+fade-in-step = 0.03;
+fade-out-step = 0.03;
+no-fading-openclose = false;
+
+detect-client-opacity = true;
+
+wintypes:
+{
+  tooltip = { fade = true; shadow = false; };
+  menu = { shadow = false; };
+  dropdown_menu = { shadow = false; };
+  popup_menu = { shadow = false; };
+};
