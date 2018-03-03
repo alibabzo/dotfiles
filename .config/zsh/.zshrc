@@ -1,1 +1,0 @@
-/home/alistair/.config/zsh/.zshrc##%.a-desktop
