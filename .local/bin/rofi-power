@@ -5,19 +5,19 @@
 
 # 2016 Oliver Kraitschy - http://okraits.de
 
-OPTIONS="Logout\\nReboot\\nPower off"
-LAUNCHER="rofi -dmenu -i -p power:"
+OPTIONS="Log off\\nRestart\\nShut down"
+LAUNCHER="rofi -lines 3 -dmenu -i -p power"
 option=$(echo $OPTIONS | $LAUNCHER | awk '{print $1}' | tr -d '\r\n')
 if [ ${#option} -gt 0 ]; then
     case $option in
-        Logout)
+        Log)
             pkill -x panel; bspc quit
             ;;
-        Reboot)
-            dbus-send --system --print-reply --des"org.freedesktop.ConsoleKit" /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Restart
+        Restart)
+            dbus-send --system --print-reply --dest="org.freedesktop.ConsoleKit" /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Restart
             ;;
-        Power)
-            dbus-send --system --print-reply --des"org.freedesktop.ConsoleKit" /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Stop
+        Shut)
+            dbus-send --system --print-reply --dest="org.freedesktop.ConsoleKit" /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Stop
             ;;
         *)
             ;;
