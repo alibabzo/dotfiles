@@ -24,6 +24,7 @@ alias ec='emacsclient -nc'
 alias xq='xbps-query -Rs'
 alias xu='sudo xbps-install -Su'
 alias xi='sudo xbps-install -S'
+alias xr='sudo xbps-remove -R'
 
 alias setclip='xclip -selection c'
 alias getclip='xclip -selection clipboard -o'
