@@ -1,5 +1,5 @@
 configuration {
     modi: "drun";
     lines: 5;
-    theme: "~/.config/rofi/themes/mono.rasi";
+    theme: "~/.config/rofi/themes/sans.rasi";
 }
