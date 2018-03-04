@@ -30,7 +30,7 @@ foreground = ${colors.foreground}
 
 modules-left = bspwm
 modules-center = xwindow
-modules-right = mpd volume wlan eth loadavg battery date
+modules-right = voidpkg volume wlan eth loadavg battery date
 
 padding-left = 0
 padding-right = 1
@@ -274,6 +274,13 @@ menu-2-0 = power off
 menu-2-0-exec = sudo poweroff
 menu-2-1 = cancel
 menu-2-1-exec = menu-open-0
+
+[module/voidpkg]
+type = custom/script
+format-prefix = u
+format-prefix-padding-right = 1
+exec = ~/.config/polybar/scripts/voidpkg.sh
+interval = 600
 
 [settings]
 screenchange-reload = true
