@@ -26,5 +26,4 @@ xset b off
 feh -z --bg-fill ~/Pictures/Wallpapers &
 compton --config ~/.config/compton.conf -b
 redshift -l 51.5:-2.6 &
-urxvtd -q -o -f
 emacs --daemon 2> /dev/null

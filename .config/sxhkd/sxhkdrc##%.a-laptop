@@ -4,7 +4,7 @@
 
 # terminal emulator
 super + Return
-	urxvtc
+	alacritty
 
 # program launcher
 super + d
@@ -19,7 +19,7 @@ super + e
 	emacseditor
 
 # make sxhkd reload its configuration files:
-super + Escape
+super + shift + Escape
 	pkill -USR1 -x sxhkd
 
 #
