@@ -28,6 +28,7 @@ set hidden                  " no nagging about unwritten changes
 set noswapfile              " disable annoying messages
 set scrolloff=8             " keep 8 screen lines above/below cursor if possible
 set wrap linebreak          " wrap long line, don't break words
+set undofile                " store undo history
 
 " show trailing spaces
 set list listchars=tab:\ \ ,trail:·
@@ -68,9 +69,6 @@ vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 nmap <leader>w :w!<cr>
 map <leader>ba :1,$bd!<cr>
 map <leader>bd :Bclose<cr>
-map <leader>f :ALEFix<cr>
-map <leader>n :ALENext<cr>
-
 " }}}
 
 " Auto commands {{{
@@ -96,7 +94,6 @@ if dein#load_state('/home/alistair/.local/share/dein')
   call dein#add('arcticicestudio/nord-vim')
   call dein#add('vim-airline/vim-airline')
   call dein#add('neomake/neomake')
-  call dein#add('barafael/neomake-platformio')
   call dein#add('Shougo/deoplete.nvim')
   call dein#add('ervandew/supertab')
   call dein#add('rbgrouleff/bclose.vim')
