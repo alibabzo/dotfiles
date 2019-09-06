@@ -18,7 +18,7 @@ color13 = ${xrdb:color13}
 color14 = ${xrdb:color14}
 color15 = ${xrdb:color15}
 font-roboto = Roboto:style=Regular:antialias=true:antialias=true:pixelsize=10;0
-font-icon = FontAwesome:size=10;0
+font-icon = Material Icons:size=11;2
 
 [bar/right]
 monitor = HDMI-1
@@ -28,7 +28,6 @@ offset-x = 0
 offset-y = 0
 bottom = true
 line-size = 1
-
 background = ${appearance.background}
 foreground = ${appearance.foreground}
 
@@ -77,7 +76,7 @@ module-margin-right = 2
 font-0 = ${appearance.font-roboto}
 font-1 = ${appearance.font-icon}
 
-; modules-left =
+modules-left = mpd
 ; modules-center =
 modules-right = bspwm
 
@@ -126,7 +125,7 @@ date-alt = %A, %d %B %Y
 time-alt = %H:%M:%S
 
 label = %date% %time%
-format-prefix = 
+format-prefix = 
 format-prefix-font = 1
 format-prefix-padding-right = 2
 
@@ -134,20 +133,25 @@ format-prefix-padding-right = 2
 type = custom/script
 interval = 10
 exec = cat /proc/loadavg | awk '{print $1}'
-format-prefix = 
+format-prefix = 
 format-prefix-font = 1
 format-prefix-padding-right = 1
 
-[module/coretemp]
-type = custom/script
-interval = 20
-exec-if = sensors
-exec = sensors | grep Core | awk '{print substr($3, 2, length($3))}' | tr '\n' ' '
+[module/temperature]
+type = internal/temperature
+interval = 0
+warn-temperature = 60
+
+[module/mpd]
+type = internal/mpd
+format-online =  <toggle> <label-song> <label-time>
+icon-play = 
+icon-pause = 
 
 [module/powermenu]
 type = custom/menu
 
-label-open = 
+label-open = 
 label-close = cancel
 label-open-padding = 1
 label-close-padding = 1
@@ -169,10 +173,8 @@ menu-2-0-padding = 1
 
 [module/archpkg]
 type = custom/script
-format-prefix = 
+format-prefix = 
 format-prefix-font = 1
 format-prefix-padding-right = 1
 exec = ~/.config/polybar/scripts/archpkg.sh
 interval = 600
-
-
