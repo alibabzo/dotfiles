@@ -7,17 +7,17 @@
 
 OPTIONS="Log off\\nRestart\\nShut down"
 LAUNCHER="rofi -lines 3 -dmenu -i -p power"
-option=$(echo $OPTIONS | $LAUNCHER | awk '{print $1}' | tr -d '\r\n')
+option=$(echo -e $OPTIONS | $LAUNCHER | awk '{print $1}' | tr -d '\r\n')
 if [ ${#option} -gt 0 ]; then
     case $option in
         Log)
             pkill -x panel; bspc quit
             ;;
         Restart)
-            dbus-send --system --print-reply --dest="org.freedesktop.ConsoleKit" /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Restart
+            reboot
             ;;
         Shut)
-            dbus-send --system --print-reply --dest="org.freedesktop.ConsoleKit" /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Stop
+            poweroff
             ;;
         *)
             ;;

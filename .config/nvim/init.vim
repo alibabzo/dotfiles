@@ -28,6 +28,7 @@ set hidden                  " no nagging about unwritten changes
 set noswapfile              " disable annoying messages
 set scrolloff=8             " keep 8 screen lines above/below cursor if possible
 set wrap linebreak          " wrap long line, don't break words
+set signcolumn=yes
 
 " show trailing spaces
 set list listchars=tab:\ \ ,trail:·
@@ -95,8 +96,10 @@ if dein#load_state('/home/alistair/.local/share/dein')
   call dein#add('/home/alistair/.local/share/dein/repos/github.com/Shougo/dein.vim')
   call dein#add('arcticicestudio/nord-vim')
   call dein#add('vim-airline/vim-airline')
-  call dein#add('neomake/neomake')
-  call dein#add('barafael/neomake-platformio')
+  call dein#add('autozimu/LanguageClient-neovim', {
+              \ 'rev': 'next',
+              \ 'build' : 'bash install.sh',
+              \})
   call dein#add('Shougo/deoplete.nvim')
   call dein#add('ervandew/supertab')
   call dein#add('rbgrouleff/bclose.vim')
@@ -111,10 +114,22 @@ set noshowmode
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='nord'
 
-call neomake#configure#automake('nw', 1000)
-
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
+
+let g:LanguageClient_serverCommands = {
+            \ 'c': ['clangd'],
+            \ 'cpp': ['clangd'],
+            \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+            \ }
+let g:LanguageClient_hasSnippetSupport = 0
+set completefunc=LanguageClient#complete
+set formatexpr=LanguageClient_textDocument_rangeFormatting()
+
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
 " }}}
 
 " Colours {{{

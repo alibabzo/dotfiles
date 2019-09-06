@@ -138,3 +138,13 @@ XF86AudioLowerVolume
 	amixer --quiet set Master 5%-
 XF86AudioMute
 	amixer --quiet set Master toggle
+XF86AudioPlay
+	mpc toggle
+XF86AudioStop
+	mpc stop
+XF86AudioPrev
+	mpc prev
+XF86AudioNext
+	mpc next
+XF86ScreenSaver
+    light-locker-command -a
