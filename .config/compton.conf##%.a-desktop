@@ -1,10 +1,6 @@
 shadow = true;
-no-dock-shadow = true;
-no-dnd-shadow = true;
-clear-shadow = true;
 shadow-radius = 10;
 shadow-opacity = 0.88;
-menu-opacity = 1;
 
 fading = true;
 fade-delta = 4;
@@ -12,17 +8,20 @@ fade-in-step = 0.15;
 fade-out-step = 0.15;
 no-fading-openclose = false;
 
+inactive-dim = 0.05;
+
 detect-client-opacity = true;
 
 backend = "glx";
 refresh-rate = 0;
-vsync = "opengl-swc";
-paint-on-overlay = true;
+vsync = true;
 
 wintypes:
 {
+  dnd = { shadow = false; };
+  dock = { shadow = false; };
   tooltip = { fade = true; shadow = false; };
   menu = { shadow = false; };
-  dropdown_menu = { shadow = false; };
-  popup_menu = { shadow = false; };
+  dropdown_menu = { shadow = false; opacity = 1; };
+  popup_menu = { shadow = false; opacity = 1; };
 };

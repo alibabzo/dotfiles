@@ -18,9 +18,6 @@ bindkey '^[[B' history-substring-search-down
 alias ls='ls --color=auto'
 alias ll='ls -al'
 
-alias e='emacsclient -t'
-alias ec='emacsclient -nc'
-
 alias pacu='trizen -Syu'
 alias paci='trizen -S'
 alias pacq='trizen -Ss'
